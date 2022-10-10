@@ -1,0 +1,16 @@
+func TestSortComb(t *testing.T) {
+	for _, test := range testSortTable {
+		// Arrange
+		arr := test.in.Copy()
+
+		// Act
+		t.Logf("starting test '%v'\n", test.title)
+		arr.SortComb()
+
+		// Assert
+		if !arr.Compare(test.out) {
+			t.Errorf("Incorrect result.\ntitle: %v\nin: %v\nout: %v\nres: %v\n",
+				test.title, test.in, test.out, arr)
+		}
+	}
+}

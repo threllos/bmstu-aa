@@ -1,0 +1,27 @@
+func benchmark(arr array.Array) error {
+	durations := [3]time.Duration{}
+	start := time.Time{}
+	repeats := *repeatsFlag
+
+	var arr2, arr3, arr4 array.Array
+
+	for i := 0; i < repeats; i++ {
+		arr2 = arr.Copy()
+		arr3 = arr.Copy()
+		arr4 = arr.Copy()
+
+		start = time.Now()
+		arr2.SortComb()
+		durations[0] += time.Since(start)
+
+		start = time.Now()
+		arr3.SortInsert()
+		durations[1] += time.Since(start)
+
+		start = time.Now()
+		arr4.SortPancake()
+		durations[2] += time.Since(start)
+	}
+
+    return nil
+}

@@ -1,0 +1,1 @@
+pdflatex.exe -synctex=1 -interaction=nonstopmode "report".tex
