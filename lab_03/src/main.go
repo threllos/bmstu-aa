@@ -17,54 +17,55 @@ var repeatsFlag = flag.Int("repeats", REPEATS, "Repeats sort")
 
 
 func benchmark(arr array.Array) error {
-	durations := [4]time.Duration{}
-	start := time.Time{}
-	repeats := *repeatsFlag
-
-	var arr1, arr2, arr3, arr4 array.Array
+	var (
+		durations [4]time.Duration
+		arrs [4]array.Array
+		repeats = *repeatsFlag
+	)
 
 	for i := 0; i < repeats; i++ {
-		arr1 = arr.Copy()
-		arr2 = arr.Copy()
-		arr3 = arr.Copy()
-		arr4 = arr.Copy()
+		arrs[0] = arr.Copy()
+		arrs[1] = arr.Copy()
+		arrs[2] = arr.Copy()
+		arrs[3] = arr.Copy()
 
-		start = time.Now()
-		sort.Sort(arr1)
+		start := time.Now()
+		sort.Sort(arrs[0])
 		durations[0] += time.Since(start)
 
 		start = time.Now()
-		arr2.SortComb()
+		arrs[1].SortComb()
 		durations[1] += time.Since(start)
 
 		start = time.Now()
-		arr3.SortInsert()
+		arrs[2].SortInsert()
 		durations[2] += time.Since(start)
 
 		start = time.Now()
-		arr4.SortPancake()
+		arrs[3].SortPancake()
 		durations[3] += time.Since(start)
 	}
 
-	if !array.Compare(arr1, arr2, arr3, arr4) {
+	if !array.Compare(arrs[0], arrs[1], arrs[2], arrs[3]) {
 		return fmt.Errorf("arrays not equal after sort")
 	}
 
 	fmt.Printf("\n=== Benchmark ===\n\n")
 
-	if (arr.Len() < 10) {
+	if (arr.Len() <= 10) {
 		fmt.Printf("Entry  array: %v\n", arr)
-		fmt.Printf("Sorted array: %v\n\n", arr1)
+		fmt.Printf("Sorted array: %v\n\n", arrs[0])
 	}
 
 	fmt.Printf("Random : %v\n", *rFlag)
 	fmt.Printf("Repeats: %d\n", repeats)
 	fmt.Printf("Length : %d\n\n", arr.Len())
 
-	fmt.Printf("default sort: %.2fns\n", float64(durations[0].Nanoseconds()) / float64(repeats))
-	fmt.Printf("comb    sort: %.2fns\n", float64(durations[1].Nanoseconds()) / float64(repeats))
-	fmt.Printf("insert  sort: %.2fns\n", float64(durations[2].Nanoseconds()) / float64(repeats))
-	fmt.Printf("pancake sort: %.2fns\n", float64(durations[3].Nanoseconds()) / float64(repeats))
+	repeatsI64 := int64(repeats);
+	fmt.Printf("default sort: %dns\n", durations[0].Nanoseconds() / repeatsI64)
+	fmt.Printf("comb    sort: %dns\n", durations[1].Nanoseconds() / repeatsI64)
+	fmt.Printf("insert  sort: %dns\n", durations[2].Nanoseconds() / repeatsI64)
+	fmt.Printf("pancake sort: %dns\n", durations[3].Nanoseconds() / repeatsI64)
 
 	fmt.Printf("\n===    end    ===\n")
 
