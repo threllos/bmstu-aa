@@ -19,7 +19,7 @@
     \item операции из списка (\ref{for:opers}) имеют трудоемкость 1;
         \begin{equation}
             \label{for:opers}
-            +, -, /, *, =, +=, -=, *=, /=, ==, !=, <, >, <=, >=, [], ++, {-}-
+            +, -, /, *, =, +=, -=, ==, !=, <, >, <=, >=, [], ++, {-}-
         \end{equation}
     \item трудоемкость оператора выбора \code{if условие then A else B} рассчитывается, как (\ref{for:if});
 	\begin{equation}
@@ -52,7 +52,7 @@
             \label{for:comb_outer}
             f_{outer} = 2 + 2(N - 1)
         \end{equation}
-    \item Трудоёмкость внутреннего цикла, количество итераций которых меняется в промежутке $[0..N-gap]$, которая равна (\ref{for:comb_inner}):
+    \item Трудоёмкость внутреннего цикла, количество итераций которых меняется в промежутке $[0..N-step]$, которая равна (\ref{for:comb_inner}):
         \begin{equation}
             \label{for:comb_inner}
             f_{inner} = 3(N - 1) + \frac{N \cdot (N - 1)}{2} \cdot (3 + f_{if})
@@ -62,7 +62,7 @@
             \label{for:comb_if}
             f_{if} = 4 + \begin{cases}
                 0, & \text{л.с.}\\
-                10, & \text{х.с.}\\
+                9, & \text{х.с.}\\
             \end{cases}
         \end{equation}
 \end{itemize}
@@ -79,46 +79,80 @@
     f_{worst} = -3 - 8N + 8N^2 \approx 8N^2 = O(N^2)
 \end{equation}
 
-\subsection{Алгоритм сортировки выбором}
+\subsection{Алгоритм сортировки вставками}
 
-Трудоёмкость алгоритма сортировки выбором состоит из:
+Трудоёмкость алгоритма сортировки вставками состоит из:
 \begin{itemize}
-    \item Трудоёмкость сравнения, инкремента внешнего цикла, а также зависимых только от него операций, по $i \in [1..N)$, которая равна (\ref{for:selection_outer}):
+    \item Трудоёмкость сравнения, инкремента внешнего цикла, а также зависимых только от него операций, по $i \in [1..N)$, которая равна (\ref{for:insert_outer}):
         \begin{equation}
-            \label{for:selection_outer}
-            f_{outer} = 2 + 12(N - 1)
+            \label{for:insert_outer}
+            f_{outer} = 1 + 3(N - 1)
         \end{equation}
-    \item Суммарная трудоёмкость внутренних циклов, количество итераций которых меняется в промежутке $[1..N-1]$, которая равна (\ref{for:selection_inner}):
+    \item Трудоёмкость внутреннего цикла, количество итераций которого меняется в промежутке $[1..N-1]$, которая равна (\ref{for:insert_inner}):
         \begin{equation}
-            \label{for:selection_inner}
-            f_{inner} = 2(N - 1) + \frac{N \cdot (N - 1)}{2} \cdot f_{if}
+            \label{for:insert_inner}
+            f_{inner} = 7(N - 1) + N \cdot (N - 1) \cdot f_{if}
         \end{equation}
-    \item Трудоёмкость условия во внутреннем цикле, которая равна (\ref{for:selection_if}):
+    \item Трудоёмкость условия во внутреннем цикле, которая равна (\ref{for:insert_if}):
         \begin{equation}
-            \label{for:selection_if}
+            \label{for:insert_if}
             f_{if} = 3 + \begin{cases}
                 0, & \text{л.с.}\\
-                3, & \text{х.с.}\\
+                5, & \text{х.с.}\\
             \end{cases}
         \end{equation}
 \end{itemize}
 
-Трудоёмкость в лучшем случае (\ref{for:selection_best}):
+Трудоёмкость в лучшем случае (\ref{for:insert_best}):
 \begin{equation}
-    \label{for:selection_best}
-    f_{best} = -12 + 12.5N + \frac{3}{2}N^2 \approx \frac{3}{2}N = O(N^2)
+    \label{for:insert_best}
+    f_{best} = 1 + 3N - 3 + 7N - 7 \approx 10N = O(N)
 \end{equation}
 
-Трудоёмкость в худшем случае (\ref{for:selection_worst}):
+Трудоёмкость в худшем случае (\ref{for:insert_worst}):
 \begin{equation}
-    \label{for:selection_worst}
-    f_{worst} = -12 + 11N + 3N^2 \approx 3N^2 = O(N^2)
+    \label{for:insert_worst}
+    f_{worst} = 1 + 3N - 3 + 7N - 7 + 5N^2 - 5N \approx 5N^2 = O(N^2)
 \end{equation}
 
 
-\subsection{Алгоритм сортировки вставками}
+\subsection{Алгоритм блинной сортировки}
 
-Трудоёмкость сортировки вставками может быть рассчитана таким же образом, что и трудоёмкости алгоритмов выше. Асимптотическая трудоёмкость алгоритма сортировки вставками $O(N^2)$ в худшем случае и $O(N)$ --- в лучшем.
+Трудоёмкость алгоритма блинной сортировки состоит из:
+\begin{itemize}
+    \item Трудоёмкость сравнения, инкремента внешнего цикла, а также зависимых только от него операций, по $i \in [0..N)$, которая равна (\ref{for:pancake_outer}):
+        \begin{equation}
+            \label{for:pancake_outer}
+            f_{outer} = 1 + 2(N - 1) + 3(N - 1)
+        \end{equation}
+    
+    \item Трудоёмкость условия во внешнем цикле, которая равна (\ref{for:pancake_if}):
+        \begin{equation}
+            \label{for:pancake_if}
+            f_{if} = 3 + \begin{cases}
+                0, & \text{л.с.}\\
+                f_{inner}, & \text{х.с.}\\
+            \end{cases}
+        \end{equation}
+    \item Трудоёмкость внутренних циклов, количество итераций которых меняется в промежутке $[1..N-k]$ и $[k..N]$, которая равна (\ref{for:pancake_inner}):
+        \begin{equation}
+            \label{for:pancake_inner}
+            f_{inner} = 7(N - 1) + 2(N)
+        \end{equation}
+\end{itemize}
+
+Трудоёмкость в лучшем случае (\ref{for:pancake_best}):
+\begin{equation}
+    \label{for:pancake_best}
+    f_{best} = 1 + 3N - 3 + 7N - 7 \approx 10N = O(N)
+\end{equation}
+
+Трудоёмкость в худшем случае (\ref{for:pancake_worst}):
+\begin{equation}
+    \label{for:pancake_worst}
+    f_{worst} = 1 + 3N - 3 + 7N - 7 + 5N^2 - 5N \approx 5N^2 = O(N^2)
+\end{equation}
+
 
 \section*{Вывод}
 

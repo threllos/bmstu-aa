@@ -3,12 +3,12 @@
 \section{Технические характеристики}
 
 \begin{itemize}
-	\item Операционная система: Manjaro \cite{manjaro} Linux \cite{linux} x86\_64.
+	\item Операционная система: Windows 11 x64\cite{windows}.
 	\item Память: 8 GiB.
-	\item Процессор: Intel® Core™ i7-8550U\cite{intel}.
+	\item Процессор: AMD Ryzen 5 3550H\cite{amd}.
 \end{itemize}
 
-Тестирование проводилось на ноутбуке, включенном в сеть электропитания. Во время тестирования ноутбук был нагружен только встроенными приложениями окружения, окружением, а также непосредственно системой тестирования.
+Замеры проводились на ноутбуке, включенном в сеть электропитания. Во время тестирования ноутбук был нагружен только встроенными приложениями окружения, окружением, а также непосредственно системой тестирования.
 
 \section{Время выполнения алгоритмов}
 
@@ -20,8 +20,8 @@
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, мс}           \\ \cline{2-4}
-			\bfseries Размер & \bfseries Пузырьком & \bfseries Вставками & \bfseries Выбором
+			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
+			\bfseries Размер & \bfseries Расчёской & \bfseries Вставками & \bfseries Блинная
 			\csvreader{assets/csv/sorted.csv}{}
 			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
 			\\\hline
@@ -37,14 +37,14 @@
 		\begin{axis}[
 			axis lines=left,
 			xlabel=Размер,
-			ylabel={Время, мс},
+			ylabel={Время, нс},
 			legend pos=north west,
 			ymajorgrids=true
 		]
-			\addplot table[x=size,y=bubble,col sep=comma]{assets/csv/sorted.csv};
-			\addplot table[x=size,y=insertion,col sep=comma]{assets/csv/sorted.csv};
-			\addplot table[x=size,y=selection,col sep=comma]{assets/csv/sorted.csv};
-			\legend{Пузырьком, Вставками, Выбором}
+			\addplot table[x=size,y=comb,col sep=comma]{assets/csv/sorted.csv};
+			\addplot table[x=size,y=insert,col sep=comma]{assets/csv/sorted.csv};
+			\addplot table[x=size,y=pancake,col sep=comma]{assets/csv/sorted.csv};
+			\legend{Расчёской, Вставками, Блинная}
 		\end{axis}
 	\end{tikzpicture}
 	\captionsetup{justification=centering}
@@ -53,12 +53,12 @@
 \end{figure}
 \clearpage
 
-\begin{table}[h]
+\begin{table}[h!]
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, мс}           \\ \cline{2-4}
-			\bfseries Размер & \bfseries Пузырьком & \bfseries Вставками & \bfseries Выбором
+			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
+			\bfseries Размер & \bfseries Расчёской & \bfseries Вставками & \bfseries Блинная
 			\csvreader{assets/csv/reversed.csv}{}
 			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
 			\\\hline
@@ -68,20 +68,20 @@
 	\label{tbl:reversed}
 \end{table}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
 			axis lines=left,
 			xlabel=Размер,
-			ylabel={Время, мс},
+			ylabel={Время, нс},
 			legend pos=north west,
 			ymajorgrids=true
 		]
-			\addplot table[x=size,y=bubble,col sep=comma]{assets/csv/reversed.csv};
-			\addplot table[x=size,y=insertion,col sep=comma]{assets/csv/reversed.csv};
-			\addplot table[x=size,y=selection,col sep=comma]{assets/csv/reversed.csv};
-			\legend{Пузырьком, Вставками, Выбором}
+			\addplot table[x=size,y=comb,col sep=comma]{assets/csv/reversed.csv};
+			\addplot table[x=size,y=insert,col sep=comma]{assets/csv/reversed.csv};
+			\addplot table[x=size,y=pancake,col sep=comma]{assets/csv/reversed.csv};
+			\legend{Расчёской, Вставками, Блинная}
 		\end{axis}
 	\end{tikzpicture}
 	\captionsetup{justification=centering}
@@ -94,8 +94,8 @@
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, мс}           \\ \cline{2-4}
-			\bfseries Размер & \bfseries Пузырьком & \bfseries Вставками & \bfseries Выбором
+			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
+			\bfseries Размер & \bfseries Расчёской & \bfseries Вставками & \bfseries Блинная
 			\csvreader{assets/csv/random.csv}{}
 			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
 			\\\hline
@@ -111,14 +111,14 @@
 		\begin{axis}[
 			axis lines=left,
 			xlabel=Размер,
-			ylabel={Время, мс},
+			ylabel={Время, нс},
 			legend pos=north west,
 			ymajorgrids=true
 		]
-			\addplot table[x=size,y=bubble,col sep=comma]{assets/csv/random.csv};
-			\addplot table[x=size,y=insertion,col sep=comma]{assets/csv/random.csv};
-			\addplot table[x=size,y=selection,col sep=comma]{assets/csv/random.csv};
-			\legend{Пузырьком, Вставками, Выбором}
+			\addplot table[x=size,y=comb,col sep=comma]{assets/csv/random.csv};
+			\addplot table[x=size,y=insert,col sep=comma]{assets/csv/random.csv};
+			\addplot table[x=size,y=pancake,col sep=comma]{assets/csv/random.csv};
+			\legend{Расчёской, Вставками, Блинная}
 		\end{axis}
 	\end{tikzpicture}
 	\captionsetup{justification=centering}
@@ -129,4 +129,4 @@
 
 \section*{Вывод}
 
-Алгоритм сортировки вставками работает лучше остальных двух на случайных числах и уже отсортированных, практический интерес, конечно, представляет лишь первый случай, на котором сортировка вставками почти стабильно быстрее других рассматриваемых алгоритмов. Например, на массиве в 5000 элементов сортировка вставками выигрывает по времени на случайных данных пузырьковую сортировку на $66\%$, выбором — на $12\%$.
+Алгоритм сортировки расчёской работает лучше остальных двух на всех случаях расположения элементов в массиве.
