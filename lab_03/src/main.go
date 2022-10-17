@@ -47,6 +47,10 @@ func benchmark(arr array.Array) error {
 	}
 
 	if !array.Compare(arrs[0], arrs[1], arrs[2], arrs[3]) {
+		fmt.Println(arrs[0])
+		fmt.Println(arrs[1])
+		fmt.Println(arrs[2])
+		fmt.Println(arrs[3])
 		return fmt.Errorf("arrays not equal after sort")
 	}
 
