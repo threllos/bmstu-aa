@@ -1,23 +1,13 @@
 package array
 
 func (a Array) SortComb() {
-	gap := a.Len()
-	flag := true
+	step := a.Len() - 1;
 
-	for gap != 1 || flag {
-		nextGap(&gap)
-		flag = false
-
-		for i := 0; i < a.Len() - gap; i++ {
-			if a.Less(i + gap, i) {
-				a.Swap(i + gap, i)
-				flag = true
-			}
+	for step >= 1 {
+		for i := 0; i + step < a.Len(); i++ {
+			if (a.Less(i + step, i)) { a.Swap(i, i + step) }
 		}
-	}
-}
 
-func nextGap(gap *int) {
-	*gap = (*gap * 10) / 13
-	if *gap < 1 { *gap = 1 }
+		step = step * 10 / 13;
+	}
 }
