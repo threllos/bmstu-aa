@@ -19,6 +19,7 @@ func (a Array) SortComb() {
 
 func nextGap(gap *int) {
 	*gap = (*gap * 10) / 13
+
 	if *gap < 1 {
 		*gap = 1
 	}

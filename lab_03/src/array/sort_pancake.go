@@ -15,7 +15,9 @@ func (a Array) findMaxIndex(len int) int {
 	max_i := 0
 
 	for i := 0; i < len; i++ {
-		if a.Less(max_i, i) { max_i = i }
+		if a.Less(max_i, i) {
+			max_i = i
+		}
 	}
 
 	return max_i

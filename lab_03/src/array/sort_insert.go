@@ -6,10 +6,10 @@ func (a Array) SortInsert() {
 		j := i - 1
 
 		for j >= 0 && a[j] > key {
-			a[j + 1] = a[j]
+			a[j+1] = a[j]
 			j--
 		}
 
-		a[j + 1] = key
+		a[j+1] = key
 	}
 }
