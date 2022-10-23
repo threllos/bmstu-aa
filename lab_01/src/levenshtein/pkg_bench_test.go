@@ -17,84 +17,84 @@ var data = [3][2]string{
 	},
 }
 
-func BenchmarkLIterativeSmall(b *testing.B) {
+func BenchmarkLIterativeLen3(b *testing.B) {
 	l := Make(data[0][0], data[0][1])
 	for i := 0; i < b.N; i++ {
 		l.LIterative()
 	}
 }
 
-func BenchmarkDLIterativeSmall(b *testing.B) {
+func BenchmarkDLIterativeLen3(b *testing.B) {
 	l := Make(data[0][0], data[0][1])
 	for i := 0; i < b.N; i++ {
 		l.DLIterative()
 	}
 }
 
-func BenchmarkDLRecursiveSmall(b *testing.B) {
+func BenchmarkDLRecursiveLen3(b *testing.B) {
 	l := Make(data[0][0], data[0][1])
 	for i := 0; i < b.N; i++ {
 		l.DLRecursive()
 	}
 }
 
-func BenchmarkDLRecursiveCashSmall(b *testing.B) {
+func BenchmarkDLRecursiveCashLen3(b *testing.B) {
 	l := Make(data[0][0], data[0][1])
 	for i := 0; i < b.N; i++ {
 		l.DLRecursiveCash()
 	}
 }
 
-func BenchmarkLIterativeMedium(b *testing.B) {
+func BenchmarkLIterativeLen5(b *testing.B) {
 	l := Make(data[1][0], data[1][1])
 	for i := 0; i < b.N; i++ {
 		l.LIterative()
 	}
 }
 
-func BenchmarkDLIterativeMedium(b *testing.B) {
+func BenchmarkDLIterativeLen5(b *testing.B) {
 	l := Make(data[1][0], data[1][1])
 	for i := 0; i < b.N; i++ {
 		l.DLIterative()
 	}
 }
 
-func BenchmarkDLRecursiveMedium(b *testing.B) {
+func BenchmarkDLRecursiveLen5(b *testing.B) {
 	l := Make(data[1][0], data[1][1])
 	for i := 0; i < b.N; i++ {
 		l.DLRecursive()
 	}
 }
 
-func BenchmarkDLRecursiveCashMedium(b *testing.B) {
+func BenchmarkDLRecursiveCashLen5(b *testing.B) {
 	l := Make(data[1][0], data[1][1])
 	for i := 0; i < b.N; i++ {
 		l.DLRecursiveCash()
 	}
 }
 
-func BenchmarkLIterativeBig(b *testing.B) {
+func BenchmarkLIterativeLen10(b *testing.B) {
 	l := Make(data[2][0], data[2][1])
 	for i := 0; i < b.N; i++ {
 		l.LIterative()
 	}
 }
 
-func BenchmarkDLIterativeBig(b *testing.B) {
+func BenchmarkDLIterativeLen10(b *testing.B) {
 	l := Make(data[2][0], data[2][1])
 	for i := 0; i < b.N; i++ {
 		l.DLIterative()
 	}
 }
 
-func BenchmarkDLRecursiveBig(b *testing.B) {
+func BenchmarkDLRecursiveLen10(b *testing.B) {
 	l := Make(data[2][0], data[2][1])
 	for i := 0; i < b.N; i++ {
 		l.DLRecursive()
 	}
 }
 
-func BenchmarkDLRecursiveCashBig(b *testing.B) {
+func BenchmarkDLRecursiveCashLen10(b *testing.B) {
 	l := Make(data[2][0], data[2][1])
 	for i := 0; i < b.N; i++ {
 		l.DLRecursiveCash()
