@@ -1,0 +1,46 @@
+package levenshtein
+
+import "lab_01/utils"
+
+func (l Levenshtein) DLIterative() int {
+	if l.isEmpty() {
+		return l.ifEmpty()
+	}
+
+	l1, l2 := l.lens()
+	cbuf := make([]int, l1+1)  // cur   buffer
+	p1buf := make([]int, l1+1) // prev1 buffer
+	p2buf := make([]int, l1+1) // prev2 buffer
+
+	for i := range p1buf {
+		p1buf[i] = i
+	}
+
+	for i := 1; i < l2+1; i++ {
+		cbuf[0] = i
+
+		for j := 1; j < l1+1; j++ {
+			eq := l.isEqualRunes(j-1, i-1)
+
+			res := utils.MinFromSome(
+				cbuf[j-1]+1,
+				p1buf[j]+1,
+				p1buf[j-1]+eq,
+			)
+
+			if l.dlFlag(j, i) {
+				res = utils.MinFromSome(
+					res,
+					p2buf[j-2]+1,
+				)
+			}
+
+			cbuf[j] = res
+		}
+
+		copy(p2buf, p1buf)
+		copy(p1buf, cbuf)
+	}
+
+	return cbuf[l1]
+}
