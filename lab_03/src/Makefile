@@ -1,8 +1,7 @@
 TESTFLAGS = -cover -v -run Test
 BENCHFLAGS = -bench=. -benchmem -run Benchmark
-BUILDFLAGS = -o ./out/app.exe -gcflags '-N -l'
+BUILDFLAGS = -o app.exe -gcflags '-N -l'
 
-OUTDIR = ./out/
 PKG1 = ./array/
 
 FILES = main.go 
@@ -10,10 +9,10 @@ FILES += $(PKG1)type.go $(PKG1)sort_comb.go $(PKG1)sort_insert.go $(PKG1)sort_pa
 
 .PHONY: app build run test bench clean
 
-app: $(OUTDIR)app.exe
-	$(OUTDIR)app.exe
+app: app.exe
+	app.exe
 
-build: $(OUTDIR)app.exe
+build: app.exe
 
 run:
 	go run main.go
@@ -25,8 +24,8 @@ bench:
 	@go test $(PKG1) $(BENCHFLAGS)
 
 clean:
-	rm -rf $(OUTDIR)
+	rm -f app.exe
 
 
-./out/app.exe: $(FILES)
+app.exe: $(FILES)
 	go build $(BUILDFLAGS)
