@@ -1,0 +1,160 @@
+\chapter{Конструкторская часть}
+
+\section{Разработка алгоритмов}
+
+На рисунках \ref{img:comb}, \ref{img:insert} и \ref{img:pancake} представлены схемы алгоритмов сортировки расчёской, вставками и блинной соответственно.
+На рисунке \ref{img:pancake-alt} представлены схемы дополнительных алгоритмов, использующихся в блинной сортировке.
+
+\img{170mm}{comb}{Схема алгоритма сортировки расчёской}
+\img{170mm}{insert}{Схема алгоритма сортировки вставками}
+\img{170mm}{pancake}{Схема алгоритма сортировки блинной}
+\clearpage
+\img{170mm}{pancake-alt}{Схемы алгоритмов поиска максимального индекса и перестановки элементов в массиве}
+\clearpage
+
+\section{Модель вычислений}
+
+Для последующего вычисления трудоемкости необходимо ввести модель вычислений:
+\begin{enumerate}
+    \item операции из списка (\ref{for:opers}) имеют трудоемкость 1;
+        \begin{equation}
+            \label{for:opers}
+            +, -, /, *, =, +=, -=, ==, !=, <, >, <=, >=, [], ++, {-}-
+        \end{equation}
+    \item трудоемкость оператора выбора \code{if условие then A else B} рассчитывается, как (\ref{for:if});
+	\begin{equation}
+        \label{for:if}
+        f_{if} = f_{\text{условия}} +
+        \begin{cases}
+        f_A, & \text{если условие выполняется,}\\
+        f_B, & \text{иначе.}
+        \end{cases}
+	\end{equation}
+\item трудоемкость цикла рассчитывается, как (\ref{for:for});
+    \begin{equation}
+        \label{for:for}
+        f_{for} = f_{\text{инициализации}} + f_{\text{сравнения}} + N(f_{\text{тела}} + f_{\text{инкремента}} + f_{\text{сравнения}})
+    \end{equation}
+	\item трудоемкость вызова функции равна 0.
+\end{enumerate}
+
+
+\section{Трудоёмкость алгоритмов}
+
+Обозначим во всех последующих вычислениях размер массивов как N.
+
+\subsection{Алгоритм сортировки расчёской}
+
+Трудоёмкость алгоритма сортировки расчёской состоит из:
+\begin{itemize}
+    \item Трудоёмкость сравнения и инкремента внешнего цикла, которая равна (\ref{for:comb_outer}):
+        \begin{equation}
+            \label{for:comb_outer}
+            f_{outer} = 2 + 2(N - 1)
+        \end{equation}
+    \item Трудоёмкость внутреннего цикла, количество итераций которых меняется в промежутке $[0..N-step]$, которая равна (\ref{for:comb_inner}):
+        \begin{equation}
+            \label{for:comb_inner}
+            f_{inner} = 3(N - 1) + \frac{N \cdot (N - 1)}{2} \cdot (3 + f_{if})
+        \end{equation}
+    \item Трудоёмкость условия во внутреннем цикле, которая равна (\ref{for:comb_if}):
+        \begin{equation}
+            \label{for:comb_if}
+            f_{if} = 4 + \begin{cases}
+                0, & \text{л.с.}\\
+                9, & \text{х.с.}\\
+            \end{cases}
+        \end{equation}
+\end{itemize}
+
+Трудоёмкость в лучшем случае (\ref{for:comb_best}):
+\begin{equation}
+    \label{for:comb_best}
+    f_{best} = -3 + \frac{3}{2} N + \frac{7}{2} N^2 \approx \frac{7}{2} N^2 = O(N^2)
+\end{equation}
+
+Трудоёмкость в худшем случае (\ref{for:comb_worst}):
+\begin{equation}
+    \label{for:comb_worst}
+    f_{worst} = -3 - 8N + 8N^2 \approx 8N^2 = O(N^2)
+\end{equation}
+
+\subsection{Алгоритм сортировки вставками}
+
+Трудоёмкость алгоритма сортировки вставками состоит из:
+\begin{itemize}
+    \item Трудоёмкость сравнения, инкремента внешнего цикла, а также зависимых только от него операций, по $i \in [1..N)$, которая равна (\ref{for:insert_outer}):
+        \begin{equation}
+            \label{for:insert_outer}
+            f_{outer} = 1 + 3(N - 1)
+        \end{equation}
+    \item Трудоёмкость внутреннего цикла, количество итераций которого меняется в промежутке $[1..N-1]$, которая равна (\ref{for:insert_inner}):
+        \begin{equation}
+            \label{for:insert_inner}
+            f_{inner} = 7(N - 1) + N \cdot (N - 1) \cdot f_{if}
+        \end{equation}
+    \item Трудоёмкость условия во внутреннем цикле, которая равна (\ref{for:insert_if}):
+        \begin{equation}
+            \label{for:insert_if}
+            f_{if} = 3 + \begin{cases}
+                0, & \text{л.с.}\\
+                5, & \text{х.с.}\\
+            \end{cases}
+        \end{equation}
+\end{itemize}
+
+Трудоёмкость в лучшем случае (\ref{for:insert_best}):
+\begin{equation}
+    \label{for:insert_best}
+    f_{best} = 1 + 3N - 3 + 7N - 7 \approx 10N = O(N)
+\end{equation}
+
+Трудоёмкость в худшем случае (\ref{for:insert_worst}):
+\begin{equation}
+    \label{for:insert_worst}
+    f_{worst} = 1 + 3N - 3 + 7N - 7 + 5N^2 - 5N \approx 5N^2 = O(N^2)
+\end{equation}
+
+
+\subsection{Алгоритм блинной сортировки}
+
+Трудоёмкость алгоритма блинной сортировки состоит из:
+\begin{itemize}
+    \item Трудоёмкость сравнения, инкремента внешнего цикла, а также зависимых только от него операций, по $i \in [0..N)$, которая равна (\ref{for:pancake_outer}):
+        \begin{equation}
+            \label{for:pancake_outer}
+            f_{outer} = 1 + 2(N - 1) + 3(N - 1)
+        \end{equation}
+    
+    \item Трудоёмкость условия во внешнем цикле, которая равна (\ref{for:pancake_if}):
+        \begin{equation}
+            \label{for:pancake_if}
+            f_{if} = 3 + \begin{cases}
+                0, & \text{л.с.}\\
+                f_{inner}, & \text{х.с.}\\
+            \end{cases}
+        \end{equation}
+    \item Трудоёмкость внутренних циклов, количество итераций которых меняется в промежутке $[1..N-k]$ и $[k..N]$, которая равна (\ref{for:pancake_inner}):
+        \begin{equation}
+            \label{for:pancake_inner}
+            f_{inner} = 7(N - 1) + 2(N)
+        \end{equation}
+\end{itemize}
+
+Трудоёмкость в лучшем случае (\ref{for:pancake_best}):
+\begin{equation}
+    \label{for:pancake_best}
+    f_{best} = 1 + 3N - 3 + 7N - 7 \approx 10N = O(N)
+\end{equation}
+
+Трудоёмкость в худшем случае (\ref{for:pancake_worst}):
+\begin{equation}
+    \label{for:pancake_worst}
+    f_{worst} = 1 + 3N - 3 + 7N - 7 + 5N^2 - 5N \approx 5N^2 = O(N^2)
+\end{equation}
+
+
+\section*{Вывод}
+
+Были разработаны схемы всех трех алгоритмов сортировки.
+Для каждого из них были рассчитаны и оценены лучшие и худшие случаи.
