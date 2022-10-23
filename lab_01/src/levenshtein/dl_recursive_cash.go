@@ -3,11 +3,12 @@ package levenshtein
 import "lab_01/utils"
 
 func (l Levenshtein) DLRecursiveCash() int {
+	l1, l2 := l.lens()
+
 	if l.isEmpty() {
-		return l.ifEmpty()
+		return utils.MaxFromSome(l1, l2)
 	}
 
-	l1, l2 := l.lens()
 	c := make([][]int, l1) // cache
 
 	for i := range c {
@@ -22,11 +23,11 @@ func (l Levenshtein) DLRecursiveCash() int {
 }
 
 func (l Levenshtein) dlRecursiveCash(c [][]int) int {
-	if l.isEmpty() {
-		return l.ifEmpty()
-	}
-
 	l1, l2 := l.lens()
+
+	if l.isEmpty() {
+		return utils.MaxFromSome(l1, l2)
+	}
 
 	if c[l1-1][l2-1] != -1 {
 		return c[l1-1][l2-1]

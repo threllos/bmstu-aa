@@ -2,76 +2,61 @@ package utils
 
 import "testing"
 
-var testAbsTable = []struct {
-	title string
-	in    int
-	out   int
-}{
-	{
-		title: "zero",
-		in:    0,
-		out:   0,
-	},
-	{
-		title: "negative",
-		in:    -5,
-		out:   5,
-	},
-	{
-		title: "positive",
-		in:    17,
-		out:   17,
-	},
-}
-
-var testMinSomeTable = []struct {
+var testTable = []struct {
 	title string
 	in    []int
-	out   int
+	min   int
+	max   int
 }{
 	{
 		title: "default",
 		in:    []int{3, 6, 1, 18},
-		out:   1,
+		min:   1,
+		max:   18,
 	},
 	{
 		title: "empty",
 		in:    []int{},
-		out:   0,
+		min:   0,
+		max:   0,
 	},
 	{
 		title: "alone num",
 		in:    []int{555},
-		out:   555,
+		min:   555,
+		max:   555,
 	},
 	{
 		title: "repeat num",
 		in:    []int{7, 7, 7, 7, 7, 7},
-		out:   7,
+		min:   7,
+		max:   7,
 	},
 	{
 		title: "with neg",
 		in:    []int{3, 5, -2, 777, -5, 12},
-		out:   -5,
+		min:   -5,
+		max:   777,
 	},
 	{
 		title: "all negatives",
 		in:    []int{-3, -6, -12, -2, -1, -8, -11, -8},
-		out:   -12,
+		min:   -12,
+		max:   -1,
 	},
 }
 
-func TestAbs(t *testing.T) {
-	for _, test := range testAbsTable {
+func TestMaxFromSome(t *testing.T) {
+	for _, test := range testTable {
 		// Arrange
 
 		// Act
-		res := Abs(test.in)
+		res := MaxFromSome(test.in...)
 
 		// Assert
-		if test.out != res {
+		if test.max != res {
 			t.Errorf("Incorrect result.\ntitle: %v\nin: %v\nout: %v\nres: %v\n",
-				test.title, test.in, test.out, res)
+				test.title, test.in, test.max, res)
 		} else {
 			t.Logf("Test pass '%v'.\n", test.title)
 		}
@@ -79,16 +64,16 @@ func TestAbs(t *testing.T) {
 }
 
 func TestMinFromSome(t *testing.T) {
-	for _, test := range testMinSomeTable {
+	for _, test := range testTable {
 		// Arrange
 
 		// Act
 		res := MinFromSome(test.in...)
 
 		// Assert
-		if test.out != res {
+		if test.min != res {
 			t.Errorf("Incorrect result.\ntitle: %v\nin: %v\nout: %v\nres: %v\n",
-				test.title, test.in, test.out, res)
+				test.title, test.in, test.min, res)
 		} else {
 			t.Logf("Test pass '%v'.\n", test.title)
 		}

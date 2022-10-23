@@ -3,11 +3,12 @@ package levenshtein
 import "lab_01/utils"
 
 func (l Levenshtein) DLIterative() int {
+	l1, l2 := l.lens()
+
 	if l.isEmpty() {
-		return l.ifEmpty()
+		return utils.MaxFromSome(l1, l2)
 	}
 
-	l1, l2 := l.lens()
 	cbuf := make([]int, l1+1)  // cur   buffer
 	p1buf := make([]int, l1+1) // prev1 buffer
 	p2buf := make([]int, l1+1) // prev2 buffer

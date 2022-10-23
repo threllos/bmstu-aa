@@ -24,16 +24,6 @@ func (l Levenshtein) isEmpty() bool {
 	return len(l.runes1) == 0 || len(l.runes2) == 0
 }
 
-func (l Levenshtein) ifEmpty() int {
-	l1, l2 := l.lens()
-
-	if l1 == 0 {
-		return l2
-	} else {
-		return l1
-	}
-}
-
 func (l Levenshtein) isEqualRunes(i, j int) int {
 	if l.runes1[i] == l.runes2[j] {
 		return 0

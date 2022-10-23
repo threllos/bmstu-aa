@@ -17,11 +17,19 @@ func MinFromSome(values ...int) int {
 	return res
 }
 
-// return |x|
-func Abs(x int) int {
-	if x < 0 {
-		return -x
+// return min int
+func MaxFromSome(values ...int) int {
+	if len(values) == 0 {
+		return 0
 	}
 
-	return x
+	res := values[0]
+
+	for _, val := range values {
+		if val > res {
+			res = val
+		}
+	}
+
+	return res
 }

@@ -3,11 +3,11 @@ package levenshtein
 import "lab_01/utils"
 
 func (l Levenshtein) DLRecursive() int {
-	if l.isEmpty() {
-		return l.ifEmpty()
-	}
-
 	l1, l2 := l.lens()
+
+	if l.isEmpty() {
+		return utils.MaxFromSome(l1, l2)
+	}
 
 	eq := l.isEqualRunes(l1-1, l2-1)
 
