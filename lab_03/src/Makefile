@@ -7,7 +7,7 @@ PKG1 = ./array/
 FILES = main.go 
 FILES += $(PKG1)type.go $(PKG1)sort_comb.go $(PKG1)sort_insert.go $(PKG1)sort_pancake.go
 
-.PHONY: app build run test bench clean
+.PHONY: app build run test clean
 
 app: app.exe
 	app.exe
@@ -19,9 +19,6 @@ run:
 
 test:
 	@go test $(PKG1) $(TESTFLAGS)
-
-bench:
-	@go test $(PKG1) $(BENCHFLAGS)
 
 clean:
 	rm -f app.exe
