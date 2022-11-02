@@ -1,36 +1,21 @@
-func benchmark(arr array.Array) error {
-	var (
-		durations [4]time.Duration
-		arrs [4]array.Array
-		repeats = *repeatsFlag
-	)
+func Benchmark(arr array.Array, repeats int) {
+	var durations [3]uint64
+	var tmp array.Array
 
 	for i := 0; i < repeats; i++ {
-		arrs[0] = arr.Copy()
-		arrs[1] = arr.Copy()
-		arrs[2] = arr.Copy()
-		arrs[3] = arr.Copy()
+		tmp = arr.Copy()
+		start := C.tick()
+		tmp.SortComb()
+		durations[0] += uint64(C.tick() - start)
 
-		start := time.Now()
-		sort.Sort(arrs[0])
-		durations[0] += time.Since(start)
+		tmp = arr.Copy()
+		start = C.tick()
+		tmp.SortInsert()
+		durations[1] += uint64(C.tick() - start)
 
-		start = time.Now()
-		arrs[1].SortComb()
-		durations[1] += time.Since(start)
-
-		start = time.Now()
-		arrs[2].SortInsert()
-		durations[2] += time.Since(start)
-
-		start = time.Now()
-		arrs[3].SortPancake()
-		durations[3] += time.Since(start)
+		tmp = arr.Copy()
+		start = C.tick()
+		tmp.SortPancake()
+		durations[2] += uint64(C.tick() - start)
 	}
-
-	if !array.Compare(arrs[0], arrs[1], arrs[2], arrs[3]) {
-		return fmt.Errorf("arrays not equal after sort")
-	}
-
-	return nil
 }
