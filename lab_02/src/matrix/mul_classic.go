@@ -1,0 +1,21 @@
+package matrix
+
+import "fmt"
+
+func (m1 Matrix) MulClassic(m2 Matrix) (Matrix, error) {
+	if m1.columns != m2.rows {
+		return Matrix{}, fmt.Errorf("matrix1 columns not equal matrix2 rows")
+	}
+
+	res, _ := Create(m1.rows, m2.columns)
+
+	for i := 0; i < res.rows; i++ {
+		for j := 0; j < res.columns; j++ {
+			for k := 0; k < m1.columns; k++ {
+				res.data[i][j] = res.data[i][j] + m1.data[i][k]*m2.data[k][j]
+			}
+		}
+	}
+
+	return res, nil
+}
