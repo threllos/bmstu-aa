@@ -1,0 +1,111 @@
+\chapter{Технологическая часть}
+
+В данном разделе будут приведены требования к программному обеспечению, средства реализации и листинга кода.
+
+\section{Требования к ПО}
+
+Программа должна отвечать следующим требованиям:
+\begin{itemize}
+	\item программа на вход принимает две строки;
+	\item программа выдает редакционное расстояние для всех четырех методов. 
+\end{itemize}
+
+\section{Средства реализации}
+
+В качестве языка программирования для реализации данной лабораторной работы был выбран современный компилируемый ЯП Golang \cite{golang}.
+Данный выбор обусловлен моим желанием расширить свои знания в области применения данного языка, а также тем, что данный язык предоставляет широкие возможности для написания тестов \cite{gotest}.
+
+\section{Листинг кода}
+
+В листингах \ref{lst:l-iter} -- \ref{lst:dl-recurs-cash} приведены листинги описанных алгоритмов Левентштейна и Дамерау-Левентштейна.
+В листинге \ref{lst:some} приведены вспомогательные функции.
+В листингах \ref{lst:tests} и \ref{lst:benches} приведены примеры реализации тестов и бенчмарков.
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Итеративный алгоритм Левентштейна},
+	label={lst:l-iter},
+	style={golang}
+]{./assets/listing/l-iter.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Итеративный алгоритм Дамерау-Левентштейна},
+	label={lst:dl-iter},
+	style={golang}
+]{./assets/listing/dl-iter.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Рекурсивный алгоритм Дамерау-Левентштейна},
+	label={lst:dl-recurs},
+	style={golang}
+]{./assets/listing/dl-recurs.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Рекурсивный алгоритм с кэшем Дамерау-Левентштейна},
+	label={lst:dl-recurs-cash},
+	style={golang}
+]{./assets/listing/dl-recurs-cash.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Вспомогательные функции для расчёта расстояний},
+	label={lst:some},
+	style={golang}
+]{./assets/listing/some.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Пример реализации тестов},
+	label={lst:tests},
+	style={golang}
+]{./assets/listing/tests-part1.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	style={golang}
+]{./assets/listing/tests-part2.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Пример реализации бенчмарка},
+	label={lst:benches},
+	style={golang}
+]{./assets/listing/benches.lst}
+\end{lstinputlisting}
+
+\clearpage
+\section{Тестирование функций}
+
+В таблице \ref{tbl:test} приведены тесты для функций, реализующих алгоритмы вычисления расстояний Левентштейна и Дамерау-Левентштейна.
+Все тесты пройдены успешно.
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{\label{tbl:test}Тестовые данные}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\bfseries Строка 1 & \bfseries Строка 2 & \bfseries Левентштейн & \bfseries Дамерау-Левентштейн \\ 
+			\hline
+			cook & cooker & 2 & 2 \\ \hline
+			aboba & aboba & 0 & 0 \\ \hline
+			абвгдеё & абвг & 3 & 3 \\ \hline
+			"" & qwer & 4 & 4 \\ \hline % как пустую строку написать
+			qwerty & ytrewq & 6 & 5 \\ \hline
+			qwerty & wqreyt & 4 & 3 \\ \hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\section*{Вывод}
+
+На основе схем из конструкторского раздела были разработаны и протестированы спроектированные алгоритмы.

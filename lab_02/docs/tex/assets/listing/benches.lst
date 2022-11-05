@@ -1,0 +1,38 @@
+package levenshtein
+
+import "testing"
+
+var data = [3][2]string{
+	{
+		"dog",
+		"god",
+	},
+}
+
+func BenchmarkLIterativeLen3(b *testing.B) {
+	l := Make(data[0][0], data[0][1])
+	for i := 0; i < b.N; i++ {
+		l.LIterative()
+	}
+}
+
+func BenchmarkDLIterativeLen3(b *testing.B) {
+	l := Make(data[0][0], data[0][1])
+	for i := 0; i < b.N; i++ {
+		l.DLIterative()
+	}
+}
+
+func BenchmarkDLRecursiveLen3(b *testing.B) {
+	l := Make(data[0][0], data[0][1])
+	for i := 0; i < b.N; i++ {
+		l.DLRecursive()
+	}
+}
+
+func BenchmarkDLRecursiveCashLen3(b *testing.B) {
+	l := Make(data[0][0], data[0][1])
+	for i := 0; i < b.N; i++ {
+		l.DLRecursiveCash()
+	}
+}
