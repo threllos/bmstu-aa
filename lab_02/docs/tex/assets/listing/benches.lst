@@ -1,38 +1,17 @@
-package levenshtein
+func Benchmark(mats [2]matrix.Matrix, repeats int) {
+	var durations [3]uint64
 
-import "testing"
+	for i := 0; i < repeats; i++ {
+		start := C.tick()
+		mats[0].MulClassic(mats[1])
+		durations[0] += uint64(C.tick() - start)
 
-var data = [3][2]string{
-	{
-		"dog",
-		"god",
-	},
-}
+		start = C.tick()
+		mats[0].MulWinograd(mats[1])
+		durations[1] += uint64(C.tick() - start)
 
-func BenchmarkLIterativeLen3(b *testing.B) {
-	l := Make(data[0][0], data[0][1])
-	for i := 0; i < b.N; i++ {
-		l.LIterative()
-	}
-}
-
-func BenchmarkDLIterativeLen3(b *testing.B) {
-	l := Make(data[0][0], data[0][1])
-	for i := 0; i < b.N; i++ {
-		l.DLIterative()
-	}
-}
-
-func BenchmarkDLRecursiveLen3(b *testing.B) {
-	l := Make(data[0][0], data[0][1])
-	for i := 0; i < b.N; i++ {
-		l.DLRecursive()
-	}
-}
-
-func BenchmarkDLRecursiveCashLen3(b *testing.B) {
-	l := Make(data[0][0], data[0][1])
-	for i := 0; i < b.N; i++ {
-		l.DLRecursiveCash()
+		start = C.tick()
+		mats[0].MulWinogradOptimized(mats[1])
+		durations[2] += uint64(C.tick() - start)
 	}
 }

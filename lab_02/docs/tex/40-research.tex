@@ -16,6 +16,7 @@
 
 \section{Пример работы программы}
 
+% TODO: сделать скрин, а до этого переделать прогу
 На рисунке \ref{img:preview} представлен результат работы программы.
 
 \img{50mm}{preview}{Пример работы программы}
@@ -23,19 +24,19 @@
 \section{Время выполнения алгоритмов}
 
 Результаты тестирования приведены в таблице \ref{tbl:times}.
-Прочерк в таблице означает, что тестирование для этого набора данных не выполнялось.
 На рисунках \ref{plt:iter-rec} и \ref{plt:l-dl} приведены зависимости времени работы алгоритма от длины строк. 
 
+% TODO: посмотреть замеры и со своими сверить
 \begin{table}[h!]
 	\begin{center}
 		\caption{Время работы алгоритмов}
 		\label{tbl:times}
-		\begin{tabular}{|c|c|c|c|c|}
+		\begin{tabular}{|c|c|c|c|}
 			\hline
-			& \multicolumn{4}{c|}{\bfseries Время работы, нс}           \\ \cline{2-5}
-			\bfseries Размер & \bfseries Л.Итер. & \bfseries Д.Л.Итер. & \bfseries Д.Л.Рек. & \bfseries Д.Л.Рек.кэш
+			& \multicolumn{3}{c|}{\bfseries Время работы, нс} \\ \cline{2-4}
+			\bfseries Размерность $n \times n$ & \bfseries Классический & \bfseries Виноград & \bfseries Виноград опт. 
 			\csvreader{assets/csv/times.csv}{}
-			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv&\csvcolv}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
 			\\\hline
 		\end{tabular}
 	\end{center}
@@ -46,84 +47,69 @@
 	\begin{tikzpicture}
 		\begin{axis}[
 			axis lines=left,
-			xlabel=Длина строк,
+			xlabel=Размер массива,
 			ylabel={Время, нс},
 			legend pos=north west,
 			ymajorgrids=true
 		]
-			\addplot table[x=len,y=dl-iter,col sep=comma]{assets/csv/times.csv};
-			\addplot table[x=len,y=dl-recurs-cash,col sep=comma]{assets/csv/times.csv};
-			\legend{Итеративный, Рекурсивный с кэшем}
+			\addplot table[x=len,y=classic,col sep=comma]{assets/csv/times.csv};
+			\addplot table[x=len,y=win,col sep=comma]{assets/csv/times.csv};
+			\addplot table[x=len,y=win-opt,col sep=comma]{assets/csv/times.csv};
+			\legend{Классический, Виноград, Виноград опт.}
 		\end{axis}
 	\end{tikzpicture}
 	\captionsetup{justification=centering}
-	\caption{Зависимость времени работы алгоритма вычисления расстояния Дамерау-Левентштейна от длины строк (итеративный и рекурсивный с кэшем)}
-	\label{plt:iter-rec}
+	\caption{Временные характеристики}
+	\label{plt:times}
 \end{figure}
 \clearpage
+
+% TODO: переписать
+Результаты тестирования приведены в таблице \ref{tbl:times}.
+На рисунках \ref{plt:iter-rec} и \ref{plt:l-dl} приведены зависимости времени работы алгоритма от длины строк. 
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время работы алгоритмов при нечетной размерности}
+		\label{tbl:times-odd}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& \multicolumn{3}{c|}{\bfseries Время работы, нс} \\ \cline{2-4}
+			\bfseries Размерность $n \times n$ & \bfseries Классический & \bfseries Виноград & \bfseries Виноград опт. 
+			\csvreader{assets/csv/times-odd.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
 
 \begin{figure}[h!]
 	\centering
 	\begin{tikzpicture}
 		\begin{axis}[
 			axis lines=left,
-			xlabel=Длина строк,
+			xlabel=Размер массива,
 			ylabel={Время, нс},
 			legend pos=north west,
 			ymajorgrids=true
 		]
-			\addplot table[x=len,y=l-iter,col sep=comma]{assets/csv/times.csv};
-			\addplot table[x=len,y=dl-iter,col sep=comma]{assets/csv/times.csv};
-			\legend{Левентштейн, Дамерау-Левентштейн}
+			\addplot table[x=len,y=classic,col sep=comma]{assets/csv/times-odd.csv};
+			\addplot table[x=len,y=win,col sep=comma]{assets/csv/times-odd.csv};
+			\addplot table[x=len,y=win-opt,col sep=comma]{assets/csv/times-odd.csv};
+			\legend{Классический, Виноград, Виноград опт.}
 		\end{axis}
 	\end{tikzpicture}
 	\captionsetup{justification=centering}
-	\caption{Зависимость времени работы алгоритма вычисления расстояния Левентштейна и Дамерау-Левентштейна от длины строк (оба итеративные)}
-	\label{plt:l-dl}
+	\caption{Временные характеристики на нечетных размерах матриц}
+	\label{plt:times-odd}
 \end{figure}
 
-\section{Использование памяти}
-
-Далее будем считать, что $C()$ -- оператор вычисления размера.
-А n и m -- длины строк $S_1$ и $S_2$ соответственно.
-
-\subsection{Нерекурсивные алгоритмы}
-
-Размер выделяемой памяти:
-\begin{itemize}
-	\item $n + m$ -- входные строки;
-	\item $2 \cdot C(int)$ -- длины строк;
-	\item $2 \cdot C(slice)$ -- буферы значений;
-	\item $2 \cdot C(int) $ -- вспомогательные переменные в циклах.
-\end{itemize}
-
-Общая затраченная память равняется: $n + m + 4 \cdot C(int) + 2 \cdot C(slice)$.
-
-В алгоритме Дамерау-Левентштейна добавляется еще один буфер, для проверки перестановки.
-Поэтому размер выделяемой памяти, относительно простого алгоритма Левентштейна, изменится только в вычисляемой памяти для буферов: $3 \cdot C(slice)$.
-
-Итоговое количество затраченной памяти равняется: $n + m + 4 \cdot C(int) + 3 \cdot C(slice)$.
-
-\subsection{Рекурсивные алгоритмы}
-
-Максимальная глубина стека вызовов при рекурсивной реализации равна сумме длин входящий строк $n + m$.
-
-Для каждого вызова функции выделяемая память:
-\begin{itemize}
-	\item $n + m$ -- входные строки;
-	\item $4 \cdot C(int) $ -- вспомогательные переменные.
-\end{itemize}
-
-Общая затраченная память равняется: $(n + m) \cdot (n + m + 4 \cdot C(int))$.
-
-В рекурсивном алгоритме с кэшем дополнительно выделяется память под матрицу значений: $n \cdot m \cdot C(int)$, а так же в каждую функцию передается кэш -- $С([][]int)$.
-
-Итоговое количество затраченной памяти равняется: $(n + m) \cdot (n + m + 4 \cdot C(int) + C([][]int)) + n \cdot m \cdot C(int)$.
-
 \section*{Вывод}
+% TODO: попиздеть вывод у кого-то
+В данном разделе было произведено сравнение количества затраченного вре­мени вышеизложенных алгоритмов.
+Наименее затратным по времени оказался оптимизированный алгоритм Винограда.
+Но при этом ему дополнительно требуется $n+m$ памяти под результат (т.е. $n+m$ прибавляется к тому количеству памяти, которое выделяется под результат в реализации стандарного алгоритма умножения матриц - $n \cdot m$).
 
-В данном разделе были сравнены реализованные алгоритмы по памяти и по времени.
-Рекурсивный алгоритм Дамерау-Левентштейна работает на порядор дольше, чем итеративная реализация этого же алгоритма.
-Время работы рекурсивного алгоритма увеличивается в геометрической прогресии с ростом размера строк.
-Алгоритм Левентштейна работает быстрее и затрачивает меньше памяти, чем модификация Дамерау.
-По расходу памяти лучше всего показал себя рекурсивный алгоритм, так как для итеративных алгоритмов выделяется память под буферы.
+Время работы реализации алгоритма Винограда незначительно меньше времени работы реализации простого алгоритма умножения, однако при размере $800 \times 800$ время вычислений реализации алгоритма Винограда на 0.3 секунды меньше, нежели у реализации простого алгоритма (что составляет в данном случае порядка $10\%$).
+
+Такой результат совпадает с теоретически полученными оценками трудоемкости алгоритмов 

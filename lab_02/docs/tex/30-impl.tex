@@ -6,8 +6,9 @@
 
 Программа должна отвечать следующим требованиям:
 \begin{itemize}
-	\item программа на вход принимает две строки;
-	\item программа выдает редакционное расстояние для всех четырех методов. 
+	\item программа на вход принимает две матрицы $A$ и $B$;
+	\item количество столбцов матрицы $A$ должно быть равно количеству строк матрицы $B$;
+	\item программа выдает результат умножения введенных пользователем матриц. 
 \end{itemize}
 
 \section{Средства реализации}
@@ -17,48 +18,46 @@
 
 \section{Листинг кода}
 
-В листингах \ref{lst:l-iter} -- \ref{lst:dl-recurs-cash} приведены листинги описанных алгоритмов Левентштейна и Дамерау-Левентштейна.
-В листинге \ref{lst:some} приведены вспомогательные функции.
+В листингах \ref{lst:mul-class}, \ref{lst:mul-win} и \ref{lst:mul-win-opt} приведены листинги описанных алгоритмов умножения матриц.
+В листингах \ref{lst:win-alt} и \ref{lst:win-opt-alt} приведены вспомогательные функции, использующиеся в алгоритмах Винограда.
 В листингах \ref{lst:tests} и \ref{lst:benches} приведены примеры реализации тестов и бенчмарков.
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Итеративный алгоритм Левентштейна},
-	label={lst:l-iter},
+	caption={Классический алгоритм умножения матриц},
+	label={lst:mul-class},
 	style={golang}
-]{./assets/listing/l-iter.lst}
+]{./assets/listing/mul-class.lst}
 \end{lstinputlisting}
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Итеративный алгоритм Дамерау-Левентштейна},
-	label={lst:dl-iter},
+	caption={Умножение матриц алгоритмом Винограда},
+	label={lst:mul-win},
 	style={golang}
-]{./assets/listing/dl-iter.lst}
+]{./assets/listing/mul-win.lst}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Вспомогательные функии для алгоритма Винограда},
+	label={lst:win-alt},
+	style={golang}
+]{./assets/listing/win-alt.lst}
 \end{lstinputlisting}
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Рекурсивный алгоритм Дамерау-Левентштейна},
-	label={lst:dl-recurs},
+	caption={Умножение матриц оптимизированным алгоритмом Винограда},
+	label={lst:mul-win-opt},
 	style={golang}
-]{./assets/listing/dl-recurs.lst}
+]{./assets/listing/mul-win-opt.lst}
 \end{lstinputlisting}
 
-\clearpage
 \begin{lstinputlisting}[
-	caption={Рекурсивный алгоритм с кэшем Дамерау-Левентштейна},
-	label={lst:dl-recurs-cash},
+	caption={Вспомогательные функии для оптимизированного алгоритма},
+	label={lst:win-opt-alt},
 	style={golang}
-]{./assets/listing/dl-recurs-cash.lst}
-\end{lstinputlisting}
-
-\clearpage
-\begin{lstinputlisting}[
-	caption={Вспомогательные функции для расчёта расстояний},
-	label={lst:some},
-	style={golang}
-]{./assets/listing/some.lst}
+]{./assets/listing/win-opt-alt.lst}
 \end{lstinputlisting}
 
 \clearpage
@@ -66,13 +65,7 @@
 	caption={Пример реализации тестов},
 	label={lst:tests},
 	style={golang}
-]{./assets/listing/tests-part1.lst}
-\end{lstinputlisting}
-
-\clearpage
-\begin{lstinputlisting}[
-	style={golang}
-]{./assets/listing/tests-part2.lst}
+]{./assets/listing/tests.lst}
 \end{lstinputlisting}
 
 \clearpage
@@ -86,22 +79,69 @@
 \clearpage
 \section{Тестирование функций}
 
-В таблице \ref{tbl:test} приведены тесты для функций, реализующих алгоритмы вычисления расстояний Левентштейна и Дамерау-Левентштейна.
+В таблице \ref{tbl:test} приведены тесты для функций, реализующих умножение матриц.
 Все тесты пройдены успешно.
 
 \begin{table}[h!]
 	\begin{center}
 		\caption{\label{tbl:test}Тестовые данные}
-		\begin{tabular}{|c|c|c|c|}
+		\begin{tabular}{|c|c|c|}
 			\hline
-			\bfseries Строка 1 & \bfseries Строка 2 & \bfseries Левентштейн & \bfseries Дамерау-Левентштейн \\ 
+			\bfseries Первая матрица& \bfseries Вторая матрица & \bfseries Ожидаемый результат  \\ 
 			\hline
-			cook & cooker & 2 & 2 \\ \hline
-			aboba & aboba & 0 & 0 \\ \hline
-			абвгдеё & абвг & 3 & 3 \\ \hline
-			"" & qwer & 4 & 4 \\ \hline % как пустую строку написать
-			qwerty & ytrewq & 6 & 5 \\ \hline
-			qwerty & wqreyt & 4 & 3 \\ \hline
+
+			$\begin{pmatrix}
+			5
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			5
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			10
+			\end{pmatrix}$ \\ \hline
+
+			$\begin{pmatrix}
+			5 \\
+			5 
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			10 & 15\\
+			10 & 15
+			\end{pmatrix}$ \\ \hline
+
+			$\begin{pmatrix}
+			1 & 2 & 3\\
+			4 & 5 & 6
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			2 & 4\\
+			6 & 8\\
+			10 & 12
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			44 & 56\\
+			98 & 128
+			\end{pmatrix}$ \\ \hline
+
+			$\begin{pmatrix}
+			-1 & -2 & -3\\
+			-4 & -5 & -6\\
+			-7 & -8 & -9
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			1 & 2 & 3\\
+			4 & 5 & 6\\
+			7 & 8 & 9
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			-30 & -36 & -42\\
+			-66 & -81 & -96\\
+			-102 & -126 & -150
+			\end{pmatrix}$ \\ \hline
+
 		\end{tabular}
 	\end{center}
 \end{table}

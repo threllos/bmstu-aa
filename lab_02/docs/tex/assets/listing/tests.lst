@@ -1,0 +1,35 @@
+func TestMulClassic(t *testing.T) {
+	for _, test := range testMulTable {
+		r, err := test.in[0].MulClassic(test.in[1])
+		if (err == nil) == test.err && r.Compare(test.out) {
+			t.Errorf("Incorrect result.\ntitle: %v\nin1: %v\nin2: %v\nout: %v\nres: %v\n",
+				test.title, test.in[0], test.in[1], test.out, r)
+		} else {
+			t.Logf("Test pass '%v'.\n", test.title)
+		}
+	}
+}
+
+func TestMulWinograd(t *testing.T) {
+	for _, test := range testMulTable {
+		r, err := test.in[0].MulWinograd(test.in[1])
+		if (err == nil) == test.err && r.Compare(test.out) {
+			t.Errorf("Incorrect result.\ntitle: %v\nin1: %v\nin2: %v\nout: %v\nres: %v\n",
+				test.title, test.in[0], test.in[1], test.out, r)
+		} else {
+			t.Logf("Test pass '%v'.\n", test.title)
+		}
+	}
+}
+
+func TestMulWinogradOptimized(t *testing.T) {
+	for _, test := range testMulTable {
+		r, err := test.in[0].MulWinogradOptimized(test.in[1])
+		if (err == nil) == test.err && r.Compare(test.out) {
+			t.Errorf("Incorrect result.\ntitle: %v\nin1: %v\nin2: %v\nout: %v\nres: %v\n",
+				test.title, test.in[0], test.in[1], test.out, r)
+		} else {
+			t.Logf("Test pass '%v'.\n", test.title)
+		}
+	}
+}
