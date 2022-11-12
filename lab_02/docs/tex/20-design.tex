@@ -1,13 +1,9 @@
 \chapter{Конструкторская часть}
 
-% TODO: расчёт
-В данном разделе представлены схемы и трудоемкости реализуемых алгоритмов.
+В данном разделе представлены схемы и расчёт трудоемкости реализуемых алгоритмов.
 
 \section{Разработка алгоритмов}
 
-% TODO: проверить пор безусловный переход(без стрелок)
-% TODO: в рис 2.2 нет отдной стрелки
-% TODO: из drawio можно pdf вставлять
 На рисунке \ref{img:mul_class} и \ref{img:mul_win} представлены схемы стандартного алгоритма и алгоритма Винограда умножения матриц соответственно.
 На рисунке \ref{img:mul_win-alt} представлены схемы алгоритмов предварительной обработки данных, использующихся в алгоритме Винограда.
 
@@ -74,11 +70,10 @@
         \end{equation}
 \end{itemize}
 
-% TODO: добавить O()
 Трудоёмкость стандартного алгоритма равна трудоёмкости внешнего цикла, поэтому её можно вычислить как (\ref{eq:class}):
 \begin{equation}
 	\label{eq:class}
-	f_{classic} = 2 + n(4 + m(4 + 14k)) = 2 + 4n + 4nm + 14nmk \approx 14nmk
+	f_{classic} = 2 + n(4 + m(4 + 14k)) \approx 14nmk = O(N^3)
 \end{equation}
 
 \subsection{Алгоритм Винограда}
@@ -125,13 +120,13 @@
 Итого, трудоёмкость в лучшем случае (\ref{eq:best}):
 \begin{equation}
     \label{eq:best}
-    f_{best} \approx 16nmk
+    f_{best} \approx 16nmk = O(N^3)
 \end{equation}
 
 Трудоёмкость в худшем случае (\ref{eq:worst}):
 \begin{equation}
     \label{eq:worst}
-    f_{worst} \approx 16nmk
+    f_{worst} \approx 16nmk = O(N^3)
 \end{equation}
 
 \subsection{Оптимизированный алгоритм Винограда}
@@ -148,19 +143,19 @@
 Трудоёмкость цикла заполнения ячеек матрицы для чётных размеров выглядит как (\ref{eq:win-opt}):
 \begin{equation}
     \label{eq:win-opt}
-    f_{even} = 2 + n(4 + m(4 + 7 + \frac{k}{2}(4 + 19))) = 2 + 4n + 11nm + 11.5nmk
+    f_{even} = 2 + n(4 + m(4 + 7 + \frac{k}{2}(4 + 19))) = 2 + 4n + 11nm + 11.5nmk O(N^3)
 \end{equation}
 
 Итого, трудоёмкость в лучшем случае (\ref{eq:best-opt}):
 \begin{equation}
     \label{eq:best-opt}
-    f_{best} \approx 11.5nmk
+    f_{best} \approx 11.5nmk = O(N^3)
 \end{equation}
 
 Трудоёмкость в худшем случае (\ref{eq:worst-opt}):
 \begin{equation}
     \label{eq:worst-opt}
-    f_{worst} \approx 11.5nmk
+    f_{worst} \approx 11.5nmk = O(N^3)
 \end{equation}
 
 \section*{Вывод}
