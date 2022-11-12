@@ -17,13 +17,13 @@
 
 \section{Листинг кода}
 
-В листингах \ref{lst:l-iter} -- \ref{lst:dl-recurs-cash} приведены листинги описанных алгоритмов Левентштейна и Дамерау-Левентштейна.
+В листингах \ref{lst:l-iter} -- \ref{lst:dl-recurs-cash} приведены листинги описанных алгоритмов Левенштейна и Дамерау-Левенштейна.
 В листинге \ref{lst:some} приведены вспомогательные функции.
 В листингах \ref{lst:tests} и \ref{lst:benches} приведены примеры реализации тестов и бенчмарков.
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Итеративный алгоритм Левентштейна},
+	caption={Итеративный алгоритм Левенштейна},
 	label={lst:l-iter},
 	style={golang}
 ]{./assets/listing/l-iter.lst}
@@ -31,7 +31,7 @@
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Итеративный алгоритм Дамерау-Левентштейна},
+	caption={Итеративный алгоритм Дамерау-Левенштейна},
 	label={lst:dl-iter},
 	style={golang}
 ]{./assets/listing/dl-iter.lst}
@@ -39,7 +39,7 @@
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Рекурсивный алгоритм Дамерау-Левентштейна},
+	caption={Рекурсивный алгоритм Дамерау-Левенштейна},
 	label={lst:dl-recurs},
 	style={golang}
 ]{./assets/listing/dl-recurs.lst}
@@ -47,7 +47,7 @@
 
 \clearpage
 \begin{lstinputlisting}[
-	caption={Рекурсивный алгоритм с кэшем Дамерау-Левентштейна},
+	caption={Рекурсивный алгоритм с кэшем Дамерау-Левенштейна},
 	label={lst:dl-recurs-cash},
 	style={golang}
 ]{./assets/listing/dl-recurs-cash.lst}
@@ -70,8 +70,9 @@
 \end{lstinputlisting}
 
 \clearpage
-% TODO: продолжение добавить
 \begin{lstinputlisting}[
+	caption={Пример реализации тестов},
+	label={lst:tests2},
 	style={golang}
 ]{./assets/listing/tests-part2.lst}
 \end{lstinputlisting}
@@ -87,21 +88,20 @@
 \clearpage
 \section{Тестирование функций}
 
-В таблице \ref{tbl:test} приведены тесты для функций, реализующих алгоритмы вычисления расстояний Левентштейна и Дамерау-Левентштейна.
+В таблице \ref{tbl:test} приведены тесты для функций, реализующих алгоритмы вычисления расстояний Левенштейна и Дамерау-Левенштейна.
 Все тесты пройдены успешно.
 
-% TODO: проверить правильные фамилии
 \begin{table}[h!]
 	\begin{center}
 		\caption{\label{tbl:test}Тестовые данные}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
-			\bfseries Строка 1 & \bfseries Строка 2 & \bfseries Левентштейн & \bfseries Дамерау-Левентштейн \\ 
+			\bfseries Строка 1 & \bfseries Строка 2 & \bfseries Левенштейн & \bfseries Дамерау-Левенштейн \\ 
 			\hline
 			cook & cooker & 2 & 2 \\ \hline
 			aboba & aboba & 0 & 0 \\ \hline
 			абвгдеё & абвг & 3 & 3 \\ \hline
-			"" & qwer & 4 & 4 \\ \hline % как пустую строку написать
+			"" & qwer & 4 & 4 \\ \hline
 			qwerty & ytrewq & 6 & 5 \\ \hline
 			qwerty & wqreyt & 4 & 3 \\ \hline
 		\end{tabular}
