@@ -1,0 +1,38 @@
+func TestDLIterative(t *testing.T) {
+	for _, test := range testLevenshteinTable {
+		l := Make(test.in[0], test.in[1])
+		res := l.DLIterative()
+		if test.dlOut != res {
+			t.Errorf("Incorrect result.\ntitle: %v\nin: %v\nout: %v\nres: %v\n",
+				test.title, test.in, test.dlOut, res)
+		} else {
+			t.Logf("Test pass '%v'.\n", test.title)
+		}
+	}
+}
+
+func TestDLRecursive(t *testing.T) {
+	for _, test := range testLevenshteinTable {
+		l := Make(test.in[0], test.in[1])
+		res := l.DLRecursive()
+		if test.dlOut != res {
+			t.Errorf("Incorrect result.\ntitle: %v\nin: %v\nout: %v\nres: %v\n",
+				test.title, test.in, test.dlOut, res)
+		} else {
+			t.Logf("Test pass '%v'.\n", test.title)
+		}
+	}
+}
+
+func TestDLRecursiveCash(t *testing.T) {
+	for _, test := range testLevenshteinTable {
+		l := Make(test.in[0], test.in[1])
+		res := l.DLRecursiveCash()
+		if test.dlOut != res {
+			t.Errorf("Incorrect result.\ntitle: %v\nin: %v\nout: %v\nres: %v\n",
+				test.title, test.in, test.dlOut, res)
+		} else {
+			t.Logf("Test pass '%v'.\n", test.title)
+		}
+	}
+}
