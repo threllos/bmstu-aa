@@ -1,0 +1,19 @@
+func (m Matrix) rowFactor() []int {
+	factor := make([]int, m.rows)
+	for i := 0; i < m.rows; i++ {
+		for j := 0; j < m.columns/2; j++ {
+			factor[i] = factor[i] + m.data[i][j*2+1]*m.data[i][j*2]
+		}
+	}
+	return factor
+}
+
+func (m Matrix) columnFactor() []int {
+	factor := make([]int, m.columns)
+	for i := 0; i < m.columns; i++ {
+		for j := 0; j < m.rows/2; j++ {
+			factor[i] = factor[i] + m.data[j*2+1][i]*m.data[j*2][i]
+		}
+	}
+	return factor
+}

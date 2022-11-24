@@ -1,0 +1,151 @@
+\chapter{Технологическая часть}
+
+В данном разделе будут приведены требования к программному обеспечению, средства реализации и листинга кода.
+
+\section{Требования к ПО}
+
+Программа должна отвечать следующим требованиям:
+\begin{itemize}
+	\item программа на вход принимает две матрицы $A$ и $B$;
+	\item количество столбцов матрицы $A$ должно быть равно количеству строк матрицы $B$;
+	\item программа выдает результат умножения введенных пользователем матриц. 
+\end{itemize}
+
+\section{Средства реализации}
+
+В качестве языка программирования для реализации данной лабораторной работы был выбран современный компилируемый ЯП Golang \cite{golang}.
+Данный выбор обусловлен моим желанием расширить свои знания в области применения данного языка, а также тем, что данный язык предоставляет широкие возможности для написания тестов \cite{gotest}.
+
+\section{Листинг кода}
+
+В листингах \ref{lst:mul-class}, \ref{lst:mul-win} и \ref{lst:mul-win-opt} приведены листинги описанных алгоритмов умножения матриц.
+В листингах \ref{lst:win-alt} и \ref{lst:win-opt-alt} приведены вспомогательные функции, использующиеся в алгоритмах Винограда.
+В листингах \ref{lst:tests} и \ref{lst:benches} приведены примеры реализации тестов и бенчмарков.
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Классический алгоритм умножения матриц},
+	label={lst:mul-class},
+	style={golang}
+]{./assets/listing/mul-class.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Умножение матриц алгоритмом Винограда},
+	label={lst:mul-win},
+	style={golang}
+]{./assets/listing/mul-win.lst}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Вспомогательные функии для алгоритма Винограда},
+	label={lst:win-alt},
+	style={golang}
+]{./assets/listing/win-alt.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Умножение матриц оптимизированным алгоритмом Винограда},
+	label={lst:mul-win-opt},
+	style={golang}
+]{./assets/listing/mul-win-opt.lst}
+\end{lstinputlisting}
+
+\begin{lstinputlisting}[
+	caption={Вспомогательные функии для оптимизированного алгоритма},
+	label={lst:win-opt-alt},
+	style={golang}
+]{./assets/listing/win-opt-alt.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Пример реализации тестов},
+	label={lst:tests},
+	style={golang}
+]{./assets/listing/tests.lst}
+\end{lstinputlisting}
+
+\clearpage
+\begin{lstinputlisting}[
+	caption={Пример реализации бенчмарка},
+	label={lst:benches},
+	style={golang}
+]{./assets/listing/benches.lst}
+\end{lstinputlisting}
+
+\clearpage
+\section{Тестирование функций}
+
+В таблице \ref{tbl:test} приведены тесты для функций, реализующих умножение матриц.
+Все тесты пройдены успешно.
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{\label{tbl:test}Тестовые данные}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			\bfseries Первая матрица& \bfseries Вторая матрица & \bfseries Ожидаемый результат  \\ 
+			\hline
+
+			$\begin{pmatrix}
+			5
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			5
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			10
+			\end{pmatrix}$ \\ \hline
+
+			$\begin{pmatrix}
+			5 \\
+			5 
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			2 & 3
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			10 & 15\\
+			10 & 15
+			\end{pmatrix}$ \\ \hline
+
+			$\begin{pmatrix}
+			1 & 2 & 3\\
+			4 & 5 & 6
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			2 & 4\\
+			6 & 8\\
+			10 & 12
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			44 & 56\\
+			98 & 128
+			\end{pmatrix}$ \\ \hline
+
+			$\begin{pmatrix}
+			-1 & -2 & -3\\
+			-4 & -5 & -6\\
+			-7 & -8 & -9
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			1 & 2 & 3\\
+			4 & 5 & 6\\
+			7 & 8 & 9
+			\end{pmatrix}$ &
+			$\begin{pmatrix}
+			-30 & -36 & -42\\
+			-66 & -81 & -96\\
+			-102 & -126 & -150
+			\end{pmatrix}$ \\ \hline
+
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\section*{Вывод}
+
+На основе схем из конструкторского раздела были разработаны и протестированы спроектированные алгоритмы.

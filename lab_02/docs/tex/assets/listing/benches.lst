@@ -1,0 +1,17 @@
+func Benchmark(mats [2]matrix.Matrix, repeats int) {
+	var durations [3]uint64
+
+	for i := 0; i < repeats; i++ {
+		start := C.tick()
+		mats[0].MulClassic(mats[1])
+		durations[0] += uint64(C.tick() - start)
+
+		start = C.tick()
+		mats[0].MulWinograd(mats[1])
+		durations[1] += uint64(C.tick() - start)
+
+		start = C.tick()
+		mats[0].MulWinogradOptimized(mats[1])
+		durations[2] += uint64(C.tick() - start)
+	}
+}

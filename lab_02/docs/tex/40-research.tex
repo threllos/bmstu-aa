@@ -1,0 +1,105 @@
+\chapter{Исследовательская часть}
+
+В данном разделе будут приведены примеры работы программы, постановка эксперимента и сравнительный анализ алгоритмов на основе полученных данных.
+
+\section{Технические характеристики}
+
+Тестирование выполнялось на устройстве со следующими техническими характеристиками:
+\begin{itemize}
+	\item Операционная система: Windows 11 x64 \cite{windows}.
+	\item Память: 8 GiB.
+	\item Процессор: AMD Ryzen 5 3550H \cite{amd}.
+\end{itemize}
+
+Замеры проводились на ноутбуке, включенном в сеть электропитания.
+Во время тестирования ноутбук был нагружен только встроенными приложениями окружения, окружением, а также непосредственно системой тестирования.
+
+\section{Время выполнения алгоритмов}
+
+Результаты тестирования приведены в таблице \ref{tbl:times}.
+На рисунке \ref{plt:times} приведена зависимость времени работы алгоритма от размера матрицы. 
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время работы алгоритмов}
+		\label{tbl:times}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& \multicolumn{3}{c|}{\bfseries Время работы, нс} \\ \cline{2-4}
+			\bfseries Размерность $n \times n$ & \bfseries Классический & \bfseries Виноград & \bfseries Виноград опт. 
+			\csvreader{assets/csv/times.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=left,
+			xlabel=Размер массива,
+			ylabel={Время, нс},
+			legend pos=north west,
+			ymajorgrids=true
+		]
+			\addplot table[x=len,y=classic,col sep=comma]{assets/csv/times.csv};
+			\addplot table[x=len,y=win,col sep=comma]{assets/csv/times.csv};
+			\addplot table[x=len,y=win-opt,col sep=comma]{assets/csv/times.csv};
+			\legend{Классический, Виноград, Виноград опт.}
+		\end{axis}
+	\end{tikzpicture}
+	\captionsetup{justification=centering}
+	\caption{Временные характеристики}
+	\label{plt:times}
+\end{figure}
+\clearpage
+
+Отдельно приведены результаты тестирования для нечётных размеров матриц в таблице \ref{tbl:times-odd}.
+На рисунке \ref{plt:times} приведена зависимость времени работы алгоритма от размера матрицы, при условии, что этот размер нечётный. 
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время работы алгоритмов при нечетной размерности}
+		\label{tbl:times-odd}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& \multicolumn{3}{c|}{\bfseries Время работы, нс} \\ \cline{2-4}
+			\bfseries Размерность $n \times n$ & \bfseries Классический & \bfseries Виноград & \bfseries Виноград опт. 
+			\csvreader{assets/csv/times-odd.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=left,
+			xlabel=Размер массива,
+			ylabel={Время, нс},
+			legend pos=north west,
+			ymajorgrids=true
+		]
+			\addplot table[x=len,y=classic,col sep=comma]{assets/csv/times-odd.csv};
+			\addplot table[x=len,y=win,col sep=comma]{assets/csv/times-odd.csv};
+			\addplot table[x=len,y=win-opt,col sep=comma]{assets/csv/times-odd.csv};
+			\legend{Классический, Виноград, Виноград опт.}
+		\end{axis}
+	\end{tikzpicture}
+	\captionsetup{justification=centering}
+	\caption{Временные характеристики на нечетных размерах матриц}
+	\label{plt:times-odd}
+\end{figure}
+
+\section*{Вывод}
+В данном разделе было произведено сравнение количества затраченного вре­мени вышеизложенных алгоритмов.
+Наименее затратным по времени оказался оптимизированный алгоритм Винограда.
+Но при этом ему дополнительно требуется $n+m$ памяти.
+
+Время работы реализации алгоритма Винограда незначительно меньше времени работы реализации простого алгоритма умножения, однако, при больших размерах, время вычислений реализации алгоритма Винограда в $\sim 1.1$ раза быстрее, нежели у реализации классического алгоритма.
+
+Такой результат совпадает с теоретически полученными оценками трудоемкости алгоритмов.

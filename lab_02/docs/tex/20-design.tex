@@ -1,0 +1,164 @@
+\chapter{Конструкторская часть}
+
+В данном разделе представлены схемы и расчёт трудоемкости реализуемых алгоритмов.
+
+\section{Разработка алгоритмов}
+
+На рисунке \ref{img:mul_class} и \ref{img:mul_win} представлены схемы стандартного алгоритма и алгоритма Винограда умножения матриц соответственно.
+На рисунке \ref{img:mul_win-alt} представлены схемы алгоритмов предварительной обработки данных, использующихся в алгоритме Винограда.
+
+\img{150mm}{mul_class}{Схема стандартного алгоритма умножения матриц}
+\clearpage
+\img{190mm}{mul_win}{Схема алгоритма Винограда умножения матриц}
+\clearpage
+\img{190mm}{mul_win-alt}{Схемы алгоритмов предварительной обработки данных}
+\clearpage
+
+\section{Модель вычислений}
+
+Для последующего вычисления трудоемкости необходимо ввести модель вычислений:
+\begin{enumerate}
+    \item операции из списка (\ref{for:opers}) имеют трудоемкость 1;
+        \begin{equation}
+            \label{for:opers}
+            +, -, =, +=, -=, ==, !=, <, >, <=, >=, [], ++, {-}-
+        \end{equation}
+    \item операции из списка (\ref{for:opers2}) имеют трудоемкость 2;
+        \begin{equation}
+            \label{for:opers2}
+            *, /, \%, *=, /=, \%=
+        \end{equation}
+    \item трудоемкость оператора выбора \code{if условие then A else B} рассчитывается, как (\ref{for:if});
+        \begin{equation}
+            \label{for:if}
+            f_{if} = f_{\text{условия}} +
+            \begin{cases}
+            f_A, & \text{если условие выполняется,}\\
+            f_B, & \text{иначе.}
+            \end{cases}
+        \end{equation}
+    \item трудоемкость цикла рассчитывается, как (\ref{for:for});
+        \begin{equation}
+            \label{for:for}
+            f_{for} = f_{\text{инициализации}} + f_{\text{сравнения}} + N(f_{\text{тела}} + f_{\text{инкремента}} + f_{\text{сравнения}})
+        \end{equation}
+	\item трудоемкость вызова функции равна 0.
+\end{enumerate}
+
+\section{Трудоёмкость алгоритмов}
+
+Обозначим во всех последующих вычислениях размерность матрицы $A$, как $n \times k$, а матрицы $B$, как $k \times m$.
+
+\subsection{Стандартный алгоритм умножения матриц}
+
+Трудоёмкость стандартного алгоритма умножения матриц включает в себя трудоемкости:
+\begin{itemize}
+	\item внешнего цикла по $i \in [1 \dots n]$, рассчитывающегося как (\ref{el:3top});
+        \begin{equation}
+            \label{el:3top}
+            f_{i} = 2 + n(2 + f_{j})
+        \end{equation}
+	\item цикла по $j \in [1 \dots m]$, рассчитывающегося как (\ref{el:2top});
+        \begin{equation}
+            \label{el:2top}
+            f_{j} = 2 + m(2 + f_{k})
+        \end{equation}
+	\item скалярного умножения двух векторов -- цикл по $k \in [1 \dots k]$, трудоёмкость которого равняется (\ref{el:1top}).
+        \begin{equation}
+            \label{el:1top}
+            f_{k} = 2 + 14k
+        \end{equation}
+\end{itemize}
+
+Трудоёмкость стандартного алгоритма равна трудоёмкости внешнего цикла, поэтому её можно вычислить как (\ref{eq:class}):
+\begin{equation}
+	\label{eq:class}
+	f_{classic} = 2 + n(4 + m(4 + 14k)) \approx 14nmk = O(N^3)
+\end{equation}
+
+\subsection{Алгоритм Винограда}
+
+Трудоёмкость алгоритма Винограда состоит из:
+\begin{itemize}
+    \item инициализация массивов $RF$ и $CF$, имеющая трудоёмкость (\ref{eq:win1});
+        \begin{equation}
+            \label{eq:win1}
+            f_{init} = n + m
+        \end{equation}
+	\item заполнение массива $RF$, который представляет из себя фактор строк и имеет трудоёмкость (\ref{eq:win2});
+        \begin{equation}
+            \label{eq:win2}
+            f_{RF} = 2 + n(4 + \frac{k}{2}(4 + 6 + 1 + 2 + 3 \cdot 2)) = 2 + 4n + 9.5nk
+        \end{equation}
+	\item заполнение массива $CF$, который представляет из себя фактор столбцов и имеет трудоёмкость (\ref{eq:win3});
+        \begin{equation}
+            \label{eq:win3}
+            f_{CF} = 2 + m(4 + \frac{k}{2}(4 + 6 + 1 + 2 + 3 \cdot 2)) = 2 + 4m + 9.5mk
+        \end{equation}
+	\item цикла заполнения ячеек матрицы C для чётных размеров, имеющий трудоёмкость (\ref{eq:win4});
+        \begin{equation}
+            \label{eq:win4}
+            f_{even} = 2 + n(4 + m(2 + 11 + \frac{k}{2}(4 + 28))) = 2 + 4n + 13nm + 16nmk
+        \end{equation}
+    \item дополнительный цикл, если размер матрицы нечётный, имеющий трудоёмкость (\ref{eq:win5}).
+        \begin{equation}
+            \label{eq:win5}
+            f_{odd} = 3 +
+            \begin{cases}
+            0, & \text{размер матрицы чётный,}\\
+            2 + 4n + 16nm, & \text{иначе.}
+            \end{cases}
+        \end{equation}
+\end{itemize}
+
+Трудоёмкость алгоритма Винограда равна сумме вышеперечисленных трудоёмкостей (\ref{eq:win}):
+\begin{equation}
+    \label{eq:win}
+    f_{win} = f_{init} + f_{RF} + f_{CF} + f_{even} + f_{onn}
+\end{equation}
+
+Итого, трудоёмкость в лучшем случае (\ref{eq:best}):
+\begin{equation}
+    \label{eq:best}
+    f_{best} \approx 16nmk = O(N^3)
+\end{equation}
+
+Трудоёмкость в худшем случае (\ref{eq:worst}):
+\begin{equation}
+    \label{eq:worst}
+    f_{worst} \approx 16nmk = O(N^3)
+\end{equation}
+
+\subsection{Оптимизированный алгоритм Винограда}
+
+Данный алгоритм можно оптимизировать:
+\begin{enumerate}
+	\item заменив выражения вида $a = a + k$ на $a += k$;
+	\item заменив умножение на 2 на побитовый сдвиг;
+	\item предвычислив некоторые слагаемые для алгоритма.
+\end{enumerate}
+
+Трудоёмкость инициализации массивов $RF$ и $CF$ никак не меняется.
+Заполнение массивов факторов и дополнительный цикл, для нечётных размеров матрицы, меняются незначительно для итоговой оценки трудоёмкости.
+Трудоёмкость цикла заполнения ячеек матрицы для чётных размеров выглядит как (\ref{eq:win-opt}):
+\begin{equation}
+    \label{eq:win-opt}
+    f_{even} = 2 + n(4 + m(4 + 7 + \frac{k}{2}(4 + 19))) = 2 + 4n + 11nm + 11.5nmk O(N^3)
+\end{equation}
+
+Итого, трудоёмкость в лучшем случае (\ref{eq:best-opt}):
+\begin{equation}
+    \label{eq:best-opt}
+    f_{best} \approx 11.5nmk = O(N^3)
+\end{equation}
+
+Трудоёмкость в худшем случае (\ref{eq:worst-opt}):
+\begin{equation}
+    \label{eq:worst-opt}
+    f_{worst} \approx 11.5nmk = O(N^3)
+\end{equation}
+
+\section*{Вывод}
+
+На основе формул и теоретических данных, полученных в аналитическом разделе, были спроектированы схемы алгоритмов.
+Проведена теоретическая оценка трудоёмкости и для каждого из алгоритмов были рассчитаны и оценены лучшие и худшие случаи.

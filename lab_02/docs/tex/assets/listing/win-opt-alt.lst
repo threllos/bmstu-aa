@@ -1,0 +1,19 @@
+func (m Matrix) rowFactorOptimized() []int {
+	factor := make([]int, m.rows)
+	for i := 0; i < m.rows; i++ {
+		for j := 1; j < m.columns; j += 2 {
+			factor[i] += m.data[i][j-1] * m.data[i][j]
+		}
+	}
+	return factor
+}
+
+func (m Matrix) columnFactorOptimized() []int {
+	factor := make([]int, m.columns)
+	for i := 0; i < m.columns; i++ {
+		for j := 1; j < m.rows; j += 2 {
+			factor[i] += m.data[j-1][i] * m.data[j][i]
+		}
+	}
+	return factor
+}
