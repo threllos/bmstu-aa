@@ -2,14 +2,14 @@
 #include <iostream>
 #include "dbscan.h"
 
-#define MINIMUM_POINTS 4     // minimum number of cluster
-#define EPSILON (0.75*0.75)  // distance for clustering, metre^2
+#define MINIMUM_POINTS 4    // minimum number of cluster
+#define EPSILON (0.75 * 0.75)           // distance for clustering, metre^2
 
 #define get_time(time) __asm__ __volatile__("rdtsc" :"=A"(time))
 
 void read_data(vector<Point> &points)
 {
-    float x, y, z;
+    float x, y;
     int points_len;
     FILE *stream = fopen ("benchmark_hepta.dat", "r");
 
@@ -17,8 +17,8 @@ void read_data(vector<Point> &points)
 
     for (int i = 0; i < points_len; i++)
     {
-        fscanf(stream, "%f,%f,%f\n", &x, &y, &z);
-        Point tmp_point{x, y, z, UNCLASSIFIED};
+        fscanf(stream, "%f,%f\n", &x, &y);
+        Point tmp_point{x, y, UNCLASSIFIED};
         points.push_back(tmp_point);
     }
 
@@ -39,7 +39,6 @@ void print_result(vector<Point> &points)
     {
         printf("%5.2lf  ", point.x);
         printf("%5.2lf  ", point.y);
-        printf("%5.2lf  ", point.z);
         printf("%d\n", point.clusterID);
     }
 
@@ -56,7 +55,6 @@ void save_result(vector<Point> &points)
     {
         fprintf(stream, "%lf,", point.x);
         fprintf(stream, "%lf,", point.y);
-        fprintf(stream, "%lf,", point.z);
         fprintf(stream, "%d\n", point.clusterID);
     }
 
@@ -80,6 +78,7 @@ int main()
     
     printf("time: %zu\n", end - start);
     printf("points: %d\n", ds.points_size);
+    printf("noise: %d\n", ds.noise_size);
     printf("clusters: %d\n", ds.cluster_size);
     for (auto &size: ds.clusters_size)
         printf("%d ", size);

@@ -4,17 +4,20 @@
 #include <cmath>
 
 #define UNCLASSIFIED -1
-#define CORE_POINT 1
-#define BORDER_POINT 2
-#define NOISE -2
 
 using namespace std;
 
 typedef struct Point_
 {
-    float x, y, z;
+    float x, y;
     int clusterID;
 } Point;
+
+typedef struct Check_
+{
+    int index;
+    bool is_kernel;
+} Check;
 
 
 class DBSCAN {
@@ -24,13 +27,22 @@ public:
         m_minPoints = minPts;
         m_epsilon = eps;
         m_points = points;
-        m_pointSize = points.size();
+
+        for (int i = 0; i < m_points.size(); i++)
+            mtx.push_back(vector<bool>(m_points.size()));
+
+        for (int i = 0; i < m_points.size(); i++)
+            unclassified.push_back(i);
     }
 
     vector<Point> m_points;
+    vector<vector<int>> clusters;
+    vector<vector<bool>> mtx;
+    vector<int> kernel, border, noise;
 
     int points_size;
     int cluster_size;
+    int noise_size;
     vector<int> clusters_size;
 
     void run();
@@ -38,12 +50,21 @@ public:
     void preparation();
 
 protected:
-    vector<int> calculate_cluster(Point point);
-    int expand_cluster(Point point, int clusterID);
-    double calculate_distance(Point p1, Point p2);
+    void prl_calc_mtx(int start, int end);
+    void prl_calc_kernel(int start, int end);
+    void prl_calc_border(int start, int end, vector<int> &tmp);
+    void prl_calc_noise(int start, int end, vector<int> &tmp);
+    void prl_unclustered_init(int start, int end);
+    void prl_clustering_init(int start, int end, int index, vector<int> &cluster, vector<Check> &checker);
+    void prl_clustering_step(int start, int end, vector<int> &cluster, vector<Check> &checker, vector<Check> &tmp_checker);
+
+    template <typename T>
+    void erase_vector(vector<T> &from, T &what);
+    double distance(Point p1, Point p2);
     
-private:    
-    unsigned int m_pointSize;
-    unsigned int m_minPoints;
+private:
+    vector<int> unclustered;
+    vector<int> unclassified;   
+    int m_minPoints;
     float m_epsilon;
 };
