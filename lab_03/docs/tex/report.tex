@@ -1,6 +1,74 @@
-\documentclass[a4paper,14pt]{extreport}
+\documentclass{bmstu}
 
-\include{preamble.inc}
+\usepackage{pgfplots}
+\usepackage{csvsimple}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\usepackage{listings}
+\usepackage{listings-golang}
+\usepackage{xcolor}
+
+
+\lstdefinestyle{golang}{
+	language=Golang,
+	backgroundcolor=\color{white},
+	basicstyle=\footnotesize\ttfamily,
+	keywordstyle=\color{blue},
+	stringstyle=\color{red},
+	commentstyle=\color{gray},
+	%directivestyle=\color{orange}
+	numbers=left,
+	numberstyle=\tiny,
+	stepnumber=1,
+	captionpos=t,
+	numbersep=5pt,
+	frame=single,
+	tabsize=8,
+	breaklines=true,
+	breakatwhitespace=true,
+	escapeinside={\#*}{*)},
+	morecomment=[l][\color{magenta}]{\#},
+	columns=fullflexible
+}
+
+
+
+\bibliography{biblio}
+
+\newcommand{\titlepageteachers}[7]
+{
+	{
+		\small
+		\begin{tabularx}{\textwidth}{@{}>{\hsize=.5\hsize}X>{\hsize=.25\hsize}X>{\hsize=.25\hsize}X@{}}
+			\titlepagestudent{#1}{#2}
+			\titlepageothers{#3}{#4}
+			\titlepageothers{#5}{#6}
+		\end{tabularx}
+	}
+}
+
+\renewcommand{\makereporttitle}[9]
+{
+	\documentmeta{Отчет}{#8}{#3 #4}{#5}
+	
+	\begin{titlepage}
+		\centering
+		
+		\titlepageheader{#1}{#2}
+		\vspace{15.8mm}
+		
+		\titlepagereporttitle{#3}{#4}{#5}{#6}
+		\vfill
+		
+		\titlepageteachers{#7}{#8}{Преподаватель}{#9}{Преподаватель}{Л.~Л.~Волкова}{}
+		
+		\vspace{14mm}
+		
+		Москва --- {\the\year} г.
+	\end{titlepage}
+	
+	\setcounter{page}{2}
+}
 
 \begin{document}
 
@@ -17,3 +85,4 @@
 \include{51-biblio}
 
 \end{document}
+
