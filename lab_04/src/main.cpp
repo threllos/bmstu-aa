@@ -2,8 +2,8 @@
 #include <iostream>
 #include "dbscan.h"
 
-#define MINIMUM_POINTS 4    // minimum number of cluster
-#define EPSILON (0.75 * 0.75)           // distance for clustering, metre^2
+#define MINIMUM_POINTS 4        // minimum number of cluster
+#define EPSILON (0.75 * 0.75)   // distance for clustering, metre^2
 
 #define get_time(time) __asm__ __volatile__("rdtsc" :"=A"(time))
 
@@ -11,7 +11,7 @@ void read_data(vector<Point> &points)
 {
     float x, y;
     int points_len;
-    FILE *stream = fopen ("benchmark_hepta.dat", "r");
+    FILE *stream = fopen ("data_100.dat", "r");
 
     fscanf(stream, "%d\n", &points_len);
 
