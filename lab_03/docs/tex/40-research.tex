@@ -5,7 +5,7 @@
 Тестирование выполнялось на устройстве со следующими техническими характеристиками.
 \begin{enumerate}
 	\item Операционная система: Windows 11 x64 \cite{windows}.
-	\item Память: 8 GiB.
+	\item Память: 8 ГБ.
 	\item Процессор: AMD Ryzen 5 3550H \cite{amd}.
 \end{enumerate}
 
@@ -18,8 +18,10 @@
 На рисунках \ref{plt:sorted}, \ref{plt:reversed} и \ref{plt:random} приведены графики зависимостей времени работы алгоритмов сортировки от размеров массивов на отсортированных, обратно отсортированных и случайных данных.
 \clearpage
 
-\begin{table}[H]
+\begin{table}[h!]
 	\begin{center}
+		\caption{Время работы алгоритмов сортировки на отсортированных данных}
+		\label{tbl:sorted}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
 			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
@@ -29,8 +31,6 @@
 			\\\hline
 		\end{tabular}
 	\end{center}
-	\caption{Время работы алгоритмов сортировки на отсортированных данных}
-	\label{tbl:sorted}
 \end{table}
 
 \begin{figure}[H]
@@ -54,8 +54,10 @@
 	\label{plt:sorted}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[h!]
 	\begin{center}
+		\caption{Время работы алгоритмов сортировки на обратно отсортированных данных}
+		\label{tbl:reversed}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
 			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
@@ -65,8 +67,6 @@
 			\\\hline
 		\end{tabular}
 	\end{center}
-	\caption{Время работы алгоритмов сортировки на обратно отсортированных данных}
-	\label{tbl:reversed}
 \end{table}
 
 \begin{figure}[H]
@@ -90,8 +90,10 @@
 	\label{plt:reversed}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[h!]
 	\begin{center}
+		\caption{Время работы алгоритмов сортировки на случайно отсортированных данных}
+		\label{tbl:random}
 		\begin{tabular}{|c|c|c|c|}
 			\hline
 			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
@@ -101,8 +103,6 @@
 			\\\hline
 		\end{tabular}
 	\end{center}
-	\caption{Время работы алгоритмов сортировки на случайных данных}
-	\label{tbl:random}
 \end{table}
 
 \begin{figure}[H]
