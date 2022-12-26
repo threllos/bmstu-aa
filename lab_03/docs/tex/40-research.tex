@@ -1,0 +1,132 @@
+\chapter{Исследовательская часть}
+
+\section{Технические характеристики}
+
+Тестирование выполнялось на устройстве со следующими техническими характеристиками.
+\begin{enumerate}
+	\item Операционная система: Windows 11 x64 \cite{windows}.
+	\item Память: 8 ГБ.
+	\item Процессор: AMD Ryzen 5 3550H \cite{amd}.
+\end{enumerate}
+
+Замеры проводились на ноутбуке, включенном в сеть электропитания.
+Во время тестирования ноутбук был нагружен только встроенными приложениями окружения, окружением, а также непосредственно системой тестирования.
+
+\section{Время выполнения алгоритмов}
+
+Результаты замеров приведены в таблицах \ref{tbl:sorted}, \ref{tbl:reversed} и \ref{tbl:random}.
+На рисунках \ref{plt:sorted}, \ref{plt:reversed} и \ref{plt:random} приведены графики зависимостей времени работы алгоритмов сортировки от размеров массивов на отсортированных, обратно отсортированных и случайных данных.
+\clearpage
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время работы алгоритмов сортировки на отсортированных данных}
+		\label{tbl:sorted}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
+			\bfseries Размер & \bfseries Расческой & \bfseries Вставками & \bfseries Блинная
+			\csvreader{assets/csv/sorted.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=left,
+			xlabel=Размер,
+			ylabel={Время, нс},
+			legend pos=north west,
+			ymajorgrids=true
+		]
+			\addplot table[x=size,y=comb,col sep=comma]{assets/csv/sorted.csv};
+			\addplot table[x=size,y=insert,col sep=comma]{assets/csv/sorted.csv};
+			\addplot table[x=size,y=pancake,col sep=comma]{assets/csv/sorted.csv};
+			\legend{Расческой, Вставками, Блинная}
+		\end{axis}
+	\end{tikzpicture}
+	\captionsetup{justification=centering}
+	\caption{Зависимость времени работы алгоритма сортировки от размера отсортированного массива}
+	\label{plt:sorted}
+\end{figure}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время работы алгоритмов сортировки на обратно отсортированных данных}
+		\label{tbl:reversed}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
+			\bfseries Размер & \bfseries Расческой & \bfseries Вставками & \bfseries Блинная
+			\csvreader{assets/csv/reversed.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=left,
+			xlabel=Размер,
+			ylabel={Время, нс},
+			legend pos=north west,
+			ymajorgrids=true
+		]
+			\addplot table[x=size,y=comb,col sep=comma]{assets/csv/reversed.csv};
+			\addplot table[x=size,y=insert,col sep=comma]{assets/csv/reversed.csv};
+			\addplot table[x=size,y=pancake,col sep=comma]{assets/csv/reversed.csv};
+			\legend{Расческой, Вставками, Блинная}
+		\end{axis}
+	\end{tikzpicture}
+	\captionsetup{justification=centering}
+	\caption{Зависимость времени работы алгоритма сортировки от размера массива, отсортированного в обратном порядке}
+	\label{plt:reversed}
+\end{figure}
+
+\begin{table}[h!]
+	\begin{center}
+		\caption{Время работы алгоритмов сортировки на случайно отсортированных данных}
+		\label{tbl:random}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			                 & \multicolumn{3}{c|}{\bfseries Время сортировки, нс}           \\ \cline{2-4}
+			\bfseries Размер & \bfseries Расческой & \bfseries Вставками & \bfseries Блинная
+			\csvreader{assets/csv/random.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=left,
+			xlabel=Размер,
+			ylabel={Время, нс},
+			legend pos=north west,
+			ymajorgrids=true
+		]
+			\addplot table[x=size,y=comb,col sep=comma]{assets/csv/random.csv};
+			\addplot table[x=size,y=insert,col sep=comma]{assets/csv/random.csv};
+			\addplot table[x=size,y=pancake,col sep=comma]{assets/csv/random.csv};
+			\legend{Расческой, Вставками, Блинная}
+		\end{axis}
+	\end{tikzpicture}
+	\captionsetup{justification=centering}
+	\caption{Зависимость времени работы алгоритма сортировки от размера случайного массива}
+	\label{plt:random}
+\end{figure}
+
+\section*{Вывод}
+
+В данном разделе были сравнены реализованные алгоритмы по времени.
+Алгоритм сортировки расческой работает лучше остальных при случайном расположении элементов в массиве.

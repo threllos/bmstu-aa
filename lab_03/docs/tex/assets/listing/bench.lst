@@ -1,0 +1,21 @@
+func Benchmark(arr array.Array, repeats int) {
+	var durations [3]uint64
+	var tmp array.Array
+
+	for i := 0; i < repeats; i++ {
+		tmp = arr.Copy()
+		start := C.tick()
+		tmp.SortComb()
+		durations[0] += uint64(C.tick() - start)
+
+		tmp = arr.Copy()
+		start = C.tick()
+		tmp.SortInsert()
+		durations[1] += uint64(C.tick() - start)
+
+		tmp = arr.Copy()
+		start = C.tick()
+		tmp.SortPancake()
+		durations[2] += uint64(C.tick() - start)
+	}
+}
