@@ -1,0 +1,21 @@
+def binsort(d, price, l, r):
+	err = {'gpu': 'error', 'price': -1}
+	if price < d[l]['price'] or price > d[r]['price']:
+		return err
+	if l == r and d[l]['price'] != price:
+		return err
+	if math.abs(l - r) == 1 and d[l]['price'] != price and d[r]['price'] != price:
+		return err
+
+	mid = math.round((l + r) / 2)
+
+	if d[mid]['price'] == price:
+		return d[mid]
+	elif d[l]['price'] == price:
+		return d[l]
+	elif d[r]['price'] == price:
+		return d[r]
+	elif d[mid]['price'] > price:
+		return binsort(d, price, l, mid)
+	else:
+		return binsort(d, price, mid, r)
