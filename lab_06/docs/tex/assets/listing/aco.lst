@@ -1,0 +1,22 @@
+def aco(matrix, size, alpha, beta, evaporation, days):
+    pmatrix = create_matrix(size)
+    vmatrix  = get_vmatrix(matrix, size)
+    q = get_q(matrix, size)
+    shortest_way = []
+    min_size = float("inf")
+    for j in range(days):
+        vis_arr = get_visited_vertices(np.arange(size), size)
+        for i in range(size):
+            while size(vis_arr[i]) != size:
+                array = get_probability(pmatrix, vmatrix, vis_arr, size, i, alpha, beta)  
+                next_place = get_next_vertex(array)
+                vis_arr[i].append(next_place - 1)
+            vis_arr[i].append(vis_arr[i][0])
+            size = tsp.get_size(matrix, size, vis_arr[i])
+            if size < min_size:
+                min_size = size
+                shortest_way = vis_arr[i]
+        pmatrix = update_pmatrix(matrix, size, vis_arr, pmatrix, q, evaporation)
+    for i in range(size(shortest_way)):
+        shortest_way[i] += 1
+    return min_size, shortest_way

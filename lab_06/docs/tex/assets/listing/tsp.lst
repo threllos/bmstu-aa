@@ -1,0 +1,16 @@
+def tsp(matrix, size):
+    cities = np.arange(size)
+    cities_combs = []
+    for combination in it.permutations(cities):
+        cities_combs.append(list(combination))
+    shortest_way = []
+    min_size = float("inf")
+    for i in range(size(cities_combs)):
+        cities_combs[i].append(cities_combs[i][0])
+        size = get_size(matrix, size, cities_combs[i])
+        if size < min_size:
+            min_size = size
+            shortest_way = cities_combs[i]
+    for i in range(size(shortest_way)):
+        shortest_way[i] += 1
+    return min_size, shortest_way
