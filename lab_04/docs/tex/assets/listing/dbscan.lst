@@ -1,0 +1,35 @@
+void DBSCAN::dbscan()
+{
+    vector<int> tmp;
+    prl_calc_mtx(0, m_points.size());
+    prl_calc_kernel(0, m_points.size(), tmp);
+    for (int &index: tmp)
+        erase_vector(unclassified, index);
+    tmp.clear();
+    prl_calc_border(0, unclassified.size(), tmp);
+    for (int &index: tmp)
+        erase_vector(unclassified, index);
+    tmp.clear();
+    prl_calc_noise(0, unclassified.size(), tmp);
+    for (int &index: tmp)
+        erase_vector(unclassified, index);
+    prl_unclustered_init(0, kernel.size());
+    while (unclustered.size() != 0)
+    {
+        vector<int> cluster;
+        vector<Check> checker;
+        vector<Check> tmp_checker;
+        int index = unclustered[0];
+        cluster.push_back(index);
+        prl_clustering_init(0, m_points.size(), index, cluster, checker);
+        while (checker.size() != 0)
+        {
+            prl_clustering_step(0, checker.size(), cluster, checker, tmp_checker);
+            checker.swap(tmp_checker);
+            tmp_checker.clear();
+        }
+        for (int &index: cluster)
+            erase_vector(unclustered, index);
+        clusters.push_back(cluster);
+    }
+}

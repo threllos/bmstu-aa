@@ -1,0 +1,59 @@
+\chapter{Исследовательская часть}
+
+\section{Технические характеристики}
+
+Тестирование выполнялось на устройстве со следующими техническими характеристиками.
+\begin{enumerate}
+	\item Операционная система: Ubuntu Linux 64-bit.
+	\item Память: 8 ГБ.
+	\item Процессор: AMD Ryzen 5 3550H.
+\end{enumerate}
+
+\section{Время выполнения алгоритма}
+
+Время работы функции замерено с помощью ассемблерной инструкции \textbf{rdtsc}, которая читает счетчик Time Stamp Counter и возвращает 64-битное количество тиков с момента последнего сброса процессора.
+
+Результаты тестирования приведены в таблице \ref{tbl:times}.
+На рисунке \ref{plt:times} приведена зависимость времени работы алгоритма от количества точек. 
+
+\begin{table}[H]
+	\begin{center}
+		\caption{Время работы алгоритма}
+		\label{tbl:times}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			& \multicolumn{3}{c|}{\bfseries Время работы, тики} \\ \cline{2-4}
+			\bfseries Количество точек & \bfseries 1 поток & \bfseries 2 потока & \bfseries 4 потока 
+			\csvreader{assets/csv/times.csv}{}
+			{\\\hline \csvcoli&\csvcolii&\csvcoliii&\csvcoliv}
+			\\\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}
+		\begin{axis}[
+			axis lines=left,
+			xlabel=Количество точек,
+			ylabel={Время, нс},
+			legend pos=north west,
+			ymajorgrids=true
+		]
+			\addplot table[x=len,y=thr1,col sep=comma]{assets/csv/times.csv};
+			\addplot table[x=len,y=thr2,col sep=comma]{assets/csv/times.csv};
+			\addplot table[x=len,y=thr4,col sep=comma]{assets/csv/times.csv};
+			\legend{1 поток, 2 потока, 4 потока}
+		\end{axis}
+	\end{tikzpicture}
+	\captionsetup{justification=centering}
+	\caption{Зависимость времени выполнения от количества потоков}
+	\label{plt:times}
+\end{figure}
+
+\section*{Вывод}
+
+Согласно полученным при проведении эксперимента данным, при малом количестве входных данных, последовательно работающий алгоритм работает быстрее, чем многопоточные. 
+Это объясняется тем, что на выделение поток тратиться значительное количество ресурсов.
+С увеличением входных данных, многопоточные начинают обгонять последовательный алгоритм, поскольку время, затраченное на выделение потоков, становиться незначительным, по сравнению со временем, затраченным на вычисления.

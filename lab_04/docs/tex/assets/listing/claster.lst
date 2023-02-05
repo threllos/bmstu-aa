@@ -1,0 +1,30 @@
+void DBSCAN::prl_clustering_step(
+    int start, int end, 
+    vector<int> &cluster, 
+    vector<Check> &checker, 
+    vector<Check> &tmp_checker
+)
+{
+    for (int i = 0; i < checker.size(); i++)
+        for (int j = 0; j < m_points.size(); j++)
+        {
+            bool is_reachable = mtx[checker[i].index][j];
+            bool in_cluster = find(
+                cluster.begin(), cluster.end(), j
+            ) != cluster.end();
+            bool is_border = find(
+                border.begin(), border.end(), j
+            ) != border.end();
+            bool is_kernel = find(
+                kernel.begin(), kernel.end(), j
+            ) != kernel.end();
+            if (is_reachable && !in_cluster)
+            {
+                if (is_border && checker[i].is_kernel)
+                    tmp_checker.push_back(Check{j, false});
+                else
+                    tmp_checker.push_back(Check{j, true});
+                cluster.push_back(j);
+            }
+        }
+}
