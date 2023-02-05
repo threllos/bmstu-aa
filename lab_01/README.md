@@ -1,10 +1,11 @@
 # Лабораторная работа №1
+### Задание
 
 Реализовать:
-- Нерекурсивный метод поиска расстояния Левенштейна (*levenshtein/l_iterative.go*)
-- Нерекурсивный метод поиска Дамерау-Левенштейна (*levenshtein/dl_iterative.go*)
-- Рекурсивный метод поиска Дамерау-Левенштейна (*levenshtein/dl_recursive.go*)
-- Рекурсивный с кешированием метод поска Дамерау-Левенштейна (*levenshtein/dl_recursive_cash.go*)
+* нерекурсивный метод поиска расстояния Левенштейна [_code_](./src/levenshtein/l_iterative.go);
+* нерекурсивный метод поиска Дамерау-Левенштейна [_code_](./src/levenshtein/dl_iterative.go);
+* рекурсивный метод поиска Дамерау-Левенштейна [_code_](./src/levenshtein/dl_recursive.go);
+* рекурсивный с кешированием метод поска Дамерау-Левенштейна [_code_](./src/levenshtein/dl_recursive_cash.go).
 
-Unit-tests: *levenshtein/pkg_test.go*
-Benchmark: *levenshtein/pkg_bench_test.go*
+[Unit-tests](./src/levenshtein/pkg_test.go). \
+[Benchmark](./src/levenshtein/pkg_bench_test.go).
