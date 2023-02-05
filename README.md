@@ -11,7 +11,7 @@
 | [5. Многопоточные вычисления](./tree/main/lab_05) | :white_check_mark: |
 | [6. Муравьиный алгоритм](./tree/main/lab_06)      | :white_check_mark: |
 | [7. Нечеткие переменные](./tree/main/lab_07)      | :white_check_mark: |
-| [0. Домашнее задание](./tree/main/hw_01)          | :heavy_check_mark: |
+| [0. Домашнее задание](./hw_01)          | :heavy_check_mark: |
 
 Готовность:
 * :heavy_check_mark: — полностью готовая лаба;
